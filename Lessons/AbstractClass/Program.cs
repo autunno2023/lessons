@@ -6,7 +6,17 @@ namespace AbstractClass
     {
         static void Main(string[] args)
         {
+            Citizen citizen = new Citizen();
+            // Citizen Citizen = (Citizen) citizen;
+            FiguraGeometrica
+                 geometrica = new Square(20, 20);
+            geometrica.CalcArea();
+            //ComuneDiMilano(citizen);
+        }
+        public static void ComuneDiMilano(Citizen Person)// Upcasting automatico
+        {
 
+            Person person = Person;
         }
     }
 
@@ -14,134 +24,46 @@ namespace AbstractClass
     {
         public decimal Area;
         public decimal Perimetro;
-        protected abstract decimal CalcArea();
-        public decimal getArea()
-        {
-            return Area;
-        }
+        public abstract void CalcArea();
 
     }
-    class Cerchio : FiguraGeometrica
+    class Circle : FiguraGeometrica
     {
-        protected override decimal CalcArea()
+        public override void CalcArea()
         {
             //calc area cerchio 
 
-            return 0m;
+            Console.WriteLine("Calc area for Circle");
+
         }
 
     }
-    class Square : FiguraGeometrica
+    class Retangle : FiguraGeometrica
     {
 
-        public Square(decimal Base, decimal Altezza)
+        public Retangle(decimal Base, decimal Altezza)
         {
 
         }
-        protected override decimal CalcArea()
+        public override void CalcArea()
         {
-            //calc area Square 
-            // Area
-            //Area = // Rissultato; 
-            return 0m;
-        }
-        public virtual void getName()
-        {
-            Console.WriteLine("Square");
+            Console.WriteLine("Calc area for Retangle");
+
         }
 
     }
-    class Square2 : Square
+    class Square : Retangle
     {
 
-        public Square2(decimal Base, decimal Altezza) : base(Base, Altezza)
+        public Square(decimal Base, decimal Altezza) : base(Base, Altezza)
         {
 
         }
-        protected override decimal CalcArea()
+        public override void CalcArea()
         {
-            //calc area Square 
-            // Area
-            //Area = // Rissultato; 
-            return 0m;
-        }
-        public override void getName()
-        {
-            Console.WriteLine("Square2");
-        }
+            Console.WriteLine("Calc area for Square");
 
-
+        }
     }
 
-    class Person
-    {
-        public string name;
-        public string surname;
-        public string age;
-        public string luogoNascita;
-
-        public Person(string Name, string Surname)
-        {
-            name = Name;
-            surname = Surname;
-        }
-        public string getName()
-        {
-            return name + " " + surname;
-        }
-
-    }
-    class Citizen : Person
-    {
-
-        public string cf;
-
-        public Citizen(string Name, string Surname, string CF) : base(Name, Surname)
-        {
-            name = Name;
-            surname = Surname;
-            cf = CF;
-        }
-
-    }
-    class FiscalPerson : Citizen
-    {
-        //public string name;
-        //public string Surname;
-        //public string age;
-        //public string luogoNascita;
-        //public string cf;
-        public new string name;
-        public bool contract;
-        public decimal salary;
-        public string employer;
-
-
-
-        public FiscalPerson(
-            string Name,
-            string Surname,
-            //string Age,
-            //string LuogoNascita,
-            ////
-            string CF,
-            bool Contract
-            //decimal Salary,
-            //string Employer
-            ) : base(Name, Surname, CF)
-        {
-            this.name = Name;
-            base.name = Name;
-            surname = Surname;
-            //age = Age;
-            //luogoNascita = LuogoNascita;
-            //cf = CF;
-            contract = Contract;
-            //salary = Salary;
-            //employer = Employer;
-
-
-        }
-
-    }
 }
