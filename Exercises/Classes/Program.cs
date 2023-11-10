@@ -6,6 +6,12 @@ namespace Classes
     {
         static void Main(string[] args)
         {
+
+            string product = null; // compiler error - this is a non-nullable type
+            string? product2 = null; // no error - this is a nullable type
+            Console.WriteLine(product);
+            Console.WriteLine(product2);
+
             Person person1 = new Person(
                 "Bruno",
                 "Ferreira",
