@@ -14,12 +14,17 @@ namespace Exception.Lesson
                 int inputNumber;
                 int TotOrder = 100;
 
-                Console.WriteLine("Insert Number:");
-                input = Console.ReadLine();
-                int.TryParse(input, out inputNumber);
+                //Console.WriteLine("Insert Number:");
+                //input = Console.ReadLine();
+                //int.TryParse(input, out inputNumber);
 
-                Console.WriteLine("Inserted Number:{0}", inputNumber);
-                Order(TotOrder, inputNumber); // Close Program
+                do
+                {
+                    Console.WriteLine("Insert a valid number:");
+                    input = Console.ReadLine();
+                } while (!int.TryParse(input, out inputNumber) || (int.TryParse(input, out inputNumber) && inputNumber < 1));
+
+                Order(TotOrder, inputNumber);
                 Console.WriteLine("Ordine inviato con sucecsso!");
 
             }
@@ -42,12 +47,11 @@ namespace Exception.Lesson
                 Console.WriteLine(ex.StackTrace);
                 Console.ResetColor();
 
-                throw; // Invece di proseguire con l'esecuzionedi un codice potenzialmente nocivo
-                       // con throw, fermo l'esecuzione e informa il chimante.  
+
             }
             finally
             {
-                // 1-  La connessione non vieniva chiusa. Ora chiude anche iin caso di  re-throw 
+                // 1-  La connessione non vieniva chiusa. Ora chiude anche in caso di  re-throw 
 
 
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -63,9 +67,10 @@ namespace Exception.Lesson
                 Console.WriteLine("Open DB connection");
                 Payment(TotOrder, FriendsNumber);
             }
-            catch  // Non volendo intercettare l'exception, tolgo i parametri e rimando indietro il l'errore
+            catch
             {
-                throw;
+                throw; // Invece di proseguire con l'esecuzione di un codice potenzialmente nocivo
+                       // con throw, fermo l'esecuzione e informo il chimante dell'errore avvenuto.
             }
 
 
@@ -73,7 +78,8 @@ namespace Exception.Lesson
         }
         static bool Payment(int TotOrder, int FriendsNumber)
         {
-            throw new System.Exception();
+            return TotOrder % FriendsNumber == 0 ? true : false;
+
         }
         static void ConfirmOrder(int FriendsNumber)
         {
