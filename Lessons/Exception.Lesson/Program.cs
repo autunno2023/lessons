@@ -23,7 +23,14 @@ namespace Exception.Lesson
                 Console.WriteLine("Ordine inviato con sucecsso!");
 
             }
-
+            catch (Under18OrderException ex)
+            {
+                Console.WriteLine($"Informa i genitori");
+            }
+            catch (GeneralOrderException ex)
+            {
+                Console.WriteLine($"Metto il cliente in blacklist");
+            }
             catch (System.Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -56,9 +63,9 @@ namespace Exception.Lesson
                 Console.WriteLine("Open DB connection");
                 Payment(TotOrder, FriendsNumber);
             }
-            catch (System.Exception ex)
+            catch  // Non volendo intercettare l'exception, tolgo i parametri e rimando indietro il l'errore
             {
-                Console.WriteLine("Error during Order...");
+                throw;
             }
 
 
@@ -77,5 +84,19 @@ namespace Exception.Lesson
             }
         }
 
+    }
+    class GeneralOrderException : System.Exception
+    {
+        public GeneralOrderException(string Message) : base(Message)
+        {
+
+        }
+    }
+    class Under18OrderException : GeneralOrderException
+    {
+        public Under18OrderException(string Message) : base(Message)
+        {
+
+        }
     }
 }
