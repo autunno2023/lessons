@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exception.Lesson.Exception;
+using System;
 using System.Threading;
 
 namespace Exception.Lesson
@@ -28,6 +29,8 @@ namespace Exception.Lesson
                 Console.WriteLine("Ordine inviato con sucecsso!");
 
             }
+
+            #region CustomExceptionHandler
             catch (Under18OrderException ex)
             {
                 Console.WriteLine($"Informa i genitori");
@@ -36,6 +39,8 @@ namespace Exception.Lesson
             {
                 Console.WriteLine($"Metto il cliente in blacklist");
             }
+            #endregion
+
             catch (System.Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -46,18 +51,14 @@ namespace Exception.Lesson
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.StackTrace);
                 Console.ResetColor();
-
-
             }
+
             finally
             {
                 // 1-  La connessione non vieniva chiusa. Ora chiude anche in caso di  re-throw 
-
-
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Close DB connection");
                 Console.ResetColor();
-
             }
         }
         static void Order(int TotOrder, int FriendsNumber)
@@ -90,19 +91,5 @@ namespace Exception.Lesson
             }
         }
 
-    }
-    class GeneralOrderException : System.Exception
-    {
-        public GeneralOrderException(string Message) : base(Message)
-        {
-
-        }
-    }
-    class Under18OrderException : GeneralOrderException
-    {
-        public Under18OrderException(string Message) : base(Message)
-        {
-
-        }
     }
 }
