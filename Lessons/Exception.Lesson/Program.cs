@@ -14,12 +14,17 @@ namespace Exception.Lesson
                 int inputNumber;
                 int TotOrder = 100;
 
-                Console.WriteLine("Insert Number:");
-                input = Console.ReadLine();
-                int.TryParse(input, out inputNumber);
+                //Console.WriteLine("Insert Number:");
+                //input = Console.ReadLine();
+                //int.TryParse(input, out inputNumber);
 
-                Console.WriteLine("Inserted Number:{0}", inputNumber);
-                Order(TotOrder, inputNumber); // Close Program
+                do
+                {
+                    Console.WriteLine("Insert Number:");
+                    input = Console.ReadLine();
+                } while (int.TryParse(input, out inputNumber) && inputNumber < 1);
+
+                Order(TotOrder, inputNumber);
                 Console.WriteLine("Ordine inviato con sucecsso!");
 
             }
