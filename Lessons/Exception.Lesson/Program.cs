@@ -34,10 +34,11 @@ namespace Exception.Lesson
             catch (Under18OrderException ex)
             {
                 Console.WriteLine($"Informa i genitori");
+                Console.WriteLine($"Metto il cliente in blacklist");
+
             }
             catch (GeneralOrderException ex)
             {
-                Console.WriteLine($"Metto il cliente in blacklist");
             }
             #endregion
 
@@ -53,13 +54,6 @@ namespace Exception.Lesson
                 Console.ResetColor();
             }
 
-            finally
-            {
-                // 1-  La connessione non vieniva chiusa. Ora chiude anche in caso di  re-throw 
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Close DB connection");
-                Console.ResetColor();
-            }
         }
         static void Order(int TotOrder, int FriendsNumber)
         {
@@ -74,12 +68,21 @@ namespace Exception.Lesson
                        // con throw, fermo l'esecuzione e informo il chimante dell'errore avvenuto.
             }
 
+            finally
+            {
+                // 1-  La connessione non vieniva chiusa. Ora chiude anche in caso di  re-throw 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Close DB connection");
+                Console.ResetColor();
+            }
+
 
             ConfirmOrder(FriendsNumber);// Ordine non esesguito
         }
         static bool Payment(int TotOrder, int FriendsNumber)
         {
-            return TotOrder % FriendsNumber == 0 ? true : false;
+            throw new Under18OrderException("Informa i genitori");
+            // return TotOrder % FriendsNumber == 0 ? true : false;
 
         }
         static void ConfirmOrder(int FriendsNumber)
