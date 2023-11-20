@@ -20,9 +20,9 @@ namespace Exception.Lesson
 
                 do
                 {
-                    Console.WriteLine("Insert Number:");
+                    Console.WriteLine("Insert a valid number:");
                     input = Console.ReadLine();
-                } while (int.TryParse(input, out inputNumber) && inputNumber < 1);
+                } while (!int.TryParse(input, out inputNumber) || (int.TryParse(input, out inputNumber) && inputNumber < 1));
 
                 Order(TotOrder, inputNumber);
                 Console.WriteLine("Ordine inviato con sucecsso!");
@@ -44,7 +44,7 @@ namespace Exception.Lesson
             }
             finally
             {
-                // 1-  La connessione non vieniva chiusa. Ora chiude anche iin caso di  re-throw 
+                // 1-  La connessione non vieniva chiusa. Ora chiude anche in caso di  re-throw 
 
 
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -62,8 +62,8 @@ namespace Exception.Lesson
             }
             catch
             {
-                throw; // Invece di proseguire con l'esecuzionedi un codice potenzialmente nocivo
-                       // con throw, fermo l'esecuzione e informa il chimante.
+                throw; // Invece di proseguire con l'esecuzione di un codice potenzialmente nocivo
+                       // con throw, fermo l'esecuzione e informo il chimante dell'errore avvenuto.
             }
 
 
