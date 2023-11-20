@@ -35,8 +35,7 @@ namespace Exception.Lesson
                 Console.WriteLine(ex.StackTrace);
                 Console.ResetColor();
 
-                throw; // Invece di proseguire con l'esecuzionedi un codice potenzialmente nocivo
-                       // con throw, fermo l'esecuzione e informa il chimante.  
+
             }
             finally
             {
@@ -56,9 +55,10 @@ namespace Exception.Lesson
                 Console.WriteLine("Open DB connection");
                 Payment(TotOrder, FriendsNumber);
             }
-            catch (System.Exception ex)
+            catch
             {
-                Console.WriteLine("Error during Order...");
+                throw; // Invece di proseguire con l'esecuzionedi un codice potenzialmente nocivo
+                       // con throw, fermo l'esecuzione e informa il chimante.
             }
 
 
