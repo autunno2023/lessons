@@ -14,18 +14,21 @@ namespace Exception.Lesson
                 int inputNumber;
                 int TotOrder = 100;
 
+                #region INPUT
                 Console.WriteLine("Insert Number:");
                 input = Console.ReadLine();
                 int.TryParse(input, out inputNumber);
-
+                #endregion
+                #region CAST_INPUT
                 Console.WriteLine("Inserted Number:{0}", inputNumber);
                 Order(TotOrder, inputNumber); // Close Program
                 Console.WriteLine("Ordine inviato con sucecsso!");
-
+                #endregion
             }
 
             catch (System.Exception ex)
             {
+                #region Exception
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException);
@@ -34,6 +37,8 @@ namespace Exception.Lesson
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.StackTrace);
                 Console.ResetColor();
+                #endregion
+
             }
         }
         static void Order(int TotOrder, int FriendsNumber)
@@ -47,8 +52,6 @@ namespace Exception.Lesson
             {
                 Console.WriteLine("Error during Order...");
             }
-
-
             ConfirmOrder(FriendsNumber);// Ordine non esesguito
         }
         static bool Payment(int TotOrder, int FriendsNumber)
