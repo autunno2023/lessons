@@ -14,22 +14,22 @@ namespace Exception.Lesson
                 int inputNumber;
                 int TotOrder = 100;
 
-                //Console.WriteLine("Insert Number:");
-                //input = Console.ReadLine();
-                //int.TryParse(input, out inputNumber);
+                Console.WriteLine("Insert Number:");
+                input = Console.ReadLine();
+                int.TryParse(input, out inputNumber);
 
-                do
-                {
-                    Console.WriteLine("Insert a valid number:");
-                    input = Console.ReadLine();
-                } while (!int.TryParse(input, out inputNumber) || (int.TryParse(input, out inputNumber) && inputNumber < 1));
+                //do
+                //{
+                //    Console.WriteLine("Insert a valid number:");
+                //    input = Console.ReadLine();
+                //} while (!int.TryParse(input, out inputNumber) || (int.TryParse(input, out inputNumber) && inputNumber < 1));
 
                 Order(TotOrder, inputNumber);
-                Console.WriteLine("Ordine inviato con sucecsso!");
+                Console.WriteLine("Ordine inviato con sucecsso !");
 
             }
 
-            catch (System.Exception ex)
+            catch (DivideByZeroException ex)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(ex.Message);
@@ -41,6 +41,10 @@ namespace Exception.Lesson
                 Console.ResetColor();
 
 
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Errore generico!");
             }
             finally
             {
@@ -69,9 +73,11 @@ namespace Exception.Lesson
 
             ConfirmOrder(FriendsNumber);// Ordine non esesguito
         }
-        static bool Payment(int TotOrder, int FriendsNumber)
+        static void Payment(int TotOrder, int FriendsNumber)
         {
-            return TotOrder % FriendsNumber == 0 ? true : false;
+            ///throw new System.Exception();
+
+            int Result = TotOrder / FriendsNumber;
 
         }
         static void ConfirmOrder(int FriendsNumber)
