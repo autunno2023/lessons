@@ -34,6 +34,19 @@ namespace Exception.Lesson
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.StackTrace);
                 Console.ResetColor();
+
+                throw; // Invece di proseguire con l'esecuzionedi un codice potenzialmente nocivo
+                       // con throw, fermo l'esecuzione e informa il chimante.  
+            }
+            finally
+            {
+                // 1-  La connessione non vieniva chiusa. Ora chiude anche iin caso di  re-throw 
+
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Close DB connection");
+                Console.ResetColor();
+
             }
         }
         static void Order(int TotOrder, int FriendsNumber)
