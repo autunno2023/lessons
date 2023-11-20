@@ -66,7 +66,8 @@ namespace Exception.Lesson
         }
         static bool Payment(int TotOrder, int FriendsNumber)
         {
-            throw new System.Exception();
+            return TotOrder % FriendsNumber == 0 ? true : false;
+
         }
         static void ConfirmOrder(int FriendsNumber)
         {
