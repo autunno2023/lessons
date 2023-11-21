@@ -8,6 +8,8 @@
         {
             public string Name;
             public int Population;
+            public dynamic[] Province;
+
 
         }
     }

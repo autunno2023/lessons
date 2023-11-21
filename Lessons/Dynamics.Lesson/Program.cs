@@ -4,6 +4,7 @@ namespace Dynamics.Lesson
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
             State italy = new State();
