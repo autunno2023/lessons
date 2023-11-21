@@ -15,6 +15,8 @@
         {
             return new Region(Name);
         }
+
+        #region Nested Class
         private class Region
         {
             string _name;
@@ -26,5 +28,7 @@
             }
 
         }
+        #endregion
+
     }
 }
