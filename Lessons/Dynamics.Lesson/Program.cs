@@ -1,4 +1,5 @@
 ﻿using System;
+using static Dynamics.Lesson.State;
 
 namespace Dynamics.Lesson
 {
@@ -8,19 +9,45 @@ namespace Dynamics.Lesson
         static void Main(string[] args)
         {
             State italy = new State();
-            var request = new { Name = "Lombardia" };
-            var response = italy.CreateRegion(request);
-            Console.WriteLine(response.Name);
-            Console.WriteLine(response.Population);
-            for (int i = 0; i < response.Province.Length; i++)
-            {
-                dynamic province = response.Province[i];
-                Console.WriteLine(province.Population);
-            }
+            italy.Name = "Italy";
+
+            StateDto Regione = italy.CreateRegione("Lombardia");
+            PrintDynamic(Regione);
+
 
             Console.Read();
         }
+
+
+
+        static void PrintDynamic(dynamic dto)
+        {
+            if (dto != null)
+            {
+                foreach (var property in dto.GetType().GetProperties())
+                {
+                    var propertyValue = property.GetValue(dto, null);
+
+                    if (!property.PropertyType.IsArray)
+                    {
+                        if (propertyValue != null)
+                        {
+                            Console.WriteLine($" : {property.Name}: {propertyValue}");
+                        }
+                    }
+                    else
+                    {
+                        foreach (var element in propertyValue)
+                        {
+                            Console.WriteLine(element.GetType().Name.ToUpper());
+                            PrintDynamic(element);
+                        }
+                    }
+                }
+            }
+        }
     }
-
-
 }
+
+
+
