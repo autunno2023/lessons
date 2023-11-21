@@ -4,10 +4,11 @@
     internal partial class State
     {
 
-        public struct RegionReq
+        public struct RegionDto
         {
             public string Name;
-
+            public int Population;
+            public dynamic[] Province;
         }
     }
 

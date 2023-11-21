@@ -10,11 +10,12 @@ namespace Dynamics.Lesson
 
         public string Presindent { get => _presindent; set => _presindent = value; }
 
-        internal RegionDto CreateRegion(RegionReq req)
+        internal RegionDto CreateRegion(dynamic req)
         {
             Region region = new(req.Name);
-            // return new RegionDto { Name = region.Name };
-            return mapper.Map<RegionDto>(region);
+            // return new RegionDto { Name = region.Name }; 
+            RegionDto regionDto = mapper.Map<RegionDto>(region);
+            return regionDto;
         }
         public State()
         {
@@ -29,11 +30,11 @@ namespace Dynamics.Lesson
         {
             string _name;
             int _poplation;
-            Provicia[] _province;
+            Provincia[] _province;
             Comune[] _comuni;
             public string Name { get => _name; }
             public int Population { get => _poplation; }
-            public Provicia[] Province { get => _province; }
+            public Provincia[] Province { get => _province; }
             public Comune[] Comuni { get => _comuni; set => _comuni = value; }
 
             public Region(string Name)
@@ -42,27 +43,26 @@ namespace Dynamics.Lesson
                 _province = CreateProvince();
 
             }
-
-            Provicia[] CreateProvince()
+            Provincia[] CreateProvince()
             {
-                return new Provicia[] { new Provicia("Milano") };
+                return new Provincia[] { new Provincia("Milano") };
             }
-
-
         }
-        private class Provicia
+        private class Provincia
         {
             string _name;
             int _poplation;
             Comune[] _comuni;
+            Cittanino[] _cittanini;
             public string Name { get => _name; }
             public int Population { get => _poplation; }
             public Comune[] Comuni { get => _comuni; }
 
-            public Provicia(string Name)
+            public Provincia(string Name)
             {
                 _name = Name;
                 _comuni = CreateComuni();
+
             }
             public Comune[] CreateComuni()
             {
@@ -77,10 +77,12 @@ namespace Dynamics.Lesson
 
             public string Name { get => _name; }
             public int Population { get => _population; }
+            public Cittanino[] Cittanini { get => _cittanini; }
 
             public Comune(string Name)
             {
                 _name = Name;
+                _cittanini = CreateCittadini();
             }
             public Cittanino[] CreateCittadini()
             {
