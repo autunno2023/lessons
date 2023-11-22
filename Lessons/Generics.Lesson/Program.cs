@@ -8,7 +8,7 @@ namespace Generics.Lesson
     {
         static void Main(string[] args)
         {
-            #region  TYPE CUSTOMERS
+            #region  TYPE CUSTOMERS 
             List<Customer> customers = new List<Customer>();
             customers.Add(new Customer() { Name = "Bruno", Age = 40 });
             customers.Add(new Customer() { Name = "Anna", Age = 30 });
@@ -32,8 +32,6 @@ namespace Generics.Lesson
             #region TYPE ??? 
             // --- > 1000 TYPES?  
             #endregion
-
-
             #region Generic List
             MyGeneriList<Person> people = new MyGeneriList<Person>();
 
@@ -47,6 +45,8 @@ namespace Generics.Lesson
             #endregion
             #endregion
         }
+
+        #region tYPE_mETHODS
         static void CreatePersonCsv(string path, string fileName, List<Customer> customers)
         {
             StringBuilder sb = new StringBuilder();
@@ -81,6 +81,8 @@ namespace Generics.Lesson
 
             File.AppendAllText(completePath, sb.ToString());
         }
+        #endregion
+        #region PARTIAL_gNERIC_mETHODS
         static void CreateGenericCsv<T>(string path, string fileName, List<T> dati)
         {
             StringBuilder sb = new StringBuilder();
@@ -103,10 +105,14 @@ namespace Generics.Lesson
 
             File.AppendAllText(completePath, sb.ToString());
         }
+        #endregion
+        #region TOTAL_gNERIC_mETHODS
         static void CreateGenericAllTypesCsv<T>(string path, string fileName, List<T> data)
         {
             // Works with All Types in the World!
         }
+        #endregion
+
     }
 }
 
