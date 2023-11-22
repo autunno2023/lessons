@@ -5,13 +5,15 @@ namespace Generics.Lesson
 {
     public class MyGeneriList<T> where T : class, new()
     {
+        #region HeaderData
+
         static int index = 4;
         T[] _data = new T[index];
         static T entry = new T();
-        public MyGeneriList()
-        {
 
-        }
+
+        #endregion
+
         public void AddItem(T item)
         {
 
@@ -34,7 +36,6 @@ namespace Generics.Lesson
             Array.Copy(_data, _newArray, _data.Length);
             _data = _newArray;
         }
-
         #region Refletions
         public static void PrintProperties()
         {
@@ -59,10 +60,6 @@ namespace Generics.Lesson
             }
         }
         #endregion
-
-
-
-
-
     }
+
 }
