@@ -12,8 +12,8 @@ namespace Dynamics.Lesson
 
 
         public string Name { get => _name; set => _name = value; }
-        private Regione[] Regioni { get => _regioni; }
-        public int Population { get; private set; } = 600000;
+        public Regione[] Regioni { get => _regioni; set => _regioni = value; }
+        public int Population { get; set; } = 600000;
 
         public State()
         {
@@ -54,13 +54,35 @@ namespace Dynamics.Lesson
             _regioni = createRegioni();
             StateDto regionDto = mapper.Map<StateDto>(this);
             return regionDto;
+            // return new { Regioni = _regioni, Name = this.Name, Population = this.Population };
+            // Non posso attivare un Anonynous Obj con  strutture complesse poichè  ragiona  in termini di Chiave/valore[string]
+        }
+        public dynamic CreateRegioneDynamic()
+        {
+
+            _regioni = createRegioni();
+            //StateDto regionDto = mapper.Map<StateDto>(this);
+            return this;
+            // return new { Regioni = _regioni, Name = this.Name, Population = this.Population };
+            // Non posso attivare un Anonynous Obj con  strutture complesse poichè  ragiona  in termini di Chiave/valore[string]
+        }
+        public dynamic CreateRegione()
+        {
+
+
+            return new
+            {
+                Population,
+                Name
+
+            };
         }
         Regione[] createRegioni()
         {
             return new Regione[] { new Regione("Lombardia"), new Regione("Veneto") };
         }
         #region Nested Class
-        private class Regione
+        public class Regione
         {
             string _name;
             int _poplation;
@@ -68,7 +90,7 @@ namespace Dynamics.Lesson
             Comune[] _comuni;
             public string Name { get => _name; }
             public int Population { get => _poplation; }
-            public Provincia[] Province { get => _province; }
+            public Provincia[] Province { get => _province; set => _province = value; }
             public Comune[] Comuni { get => _comuni; set => _comuni = value; }
 
             public Regione(string Name)
@@ -82,7 +104,7 @@ namespace Dynamics.Lesson
                 return new Provincia[] { new Provincia("Milano") };
             }
         }
-        private class Provincia
+        public class Provincia
         {
             string _name;
             int _poplation;
@@ -90,7 +112,7 @@ namespace Dynamics.Lesson
             Cittadino[] _cittanini;
             public string Name { get => _name; }
             public int Population { get => _poplation; }
-            public Comune[] Comuni { get => _comuni; }
+            public Comune[] Comuni { get => _comuni; set => _comuni = value; }
 
             public Provincia(string Name)
             {
@@ -103,7 +125,7 @@ namespace Dynamics.Lesson
                 return new Comune[] { new Comune("Lodi") };
             }
         }
-        private class Comune
+        public class Comune
         {
             string _name;
             int _population;
@@ -111,7 +133,7 @@ namespace Dynamics.Lesson
 
             public string Name { get => _name; }
             public int Population { get => _population; }
-            public Cittadino[] Cittanini { get => _cittanini; }
+            public Cittadino[] Cittanini { get => _cittanini; set => _cittanini = value; }
 
             public Comune(string Name)
             {
@@ -125,7 +147,7 @@ namespace Dynamics.Lesson
 
 
         }
-        private class Cittadino
+        public class Cittadino
         {
             string _name;
             int _population;

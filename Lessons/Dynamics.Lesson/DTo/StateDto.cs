@@ -12,7 +12,7 @@
         }
         public class StateDto : Dto
         {
-            public dynamic[] data { get; set; }
+            public RegioneDto[] data { get; set; }
         }
 
         public class RegioneDto : Dto
