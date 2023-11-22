@@ -9,28 +9,28 @@ namespace FileSystem.Lesson
     {
         static void Main(string[] args)
         {
-            WriteOnFile(@"D:\logs\FileSystemLesson", "FileSystemLesson");
-
+            GetDirInfo();
+            //WriteOnFile(@"D:\logs\FileSystemLesson", "FileSystemLesson");
 
             #region Tabular
 
-            List<string[]> users = new List<string[]>();
-            users.Add(new string[] { "Bruno", "40", "Milano" });
-            users.Add(new string[] { "Marco", "41" });
-            users.Add(new string[] { "Laura", "42" });
-            users.Add(new string[] { "Giorgio", "43", "Milano" });
-            users.Add(new string[] { "Anna", "44" });
-            users.Add(new string[] { "Matteo", "45" });
-            users.Add(new string[] { "Luca", "46", "Milano" });
-            users.Add(new string[] { "Alessandro", "47" });
-            users.Add(new string[] { "Antonio", "48" });
+            List<Customer> users = new List<Customer>();
+            users.Add(new Customer());
+            users.Add(new Customer());
+            users.Add(new Customer());
+            users.Add(new Customer());
+            users.Add(new Customer());
+            users.Add(new Customer());
+            users.Add(new Customer());
+            users.Add(new Customer());
+
 
             WriteAsTabular(@"D:\logs\", "TabularFile", users);
 
             #endregion
 
         }
-        static void SpecialPath(string RootPath, String MyDir) // Path  = percorso LOCAL  -> REMOTE path -> SERVER , URL 
+        static void SpecialPath(string RootPath, String MyDir) // Path  = percorso LOCAL  -> REMOTE path -> SERVER  
         {
             string myPath = $"{RootPath}{Path.DirectorySeparatorChar}{MyDir}";
 
@@ -85,11 +85,12 @@ namespace FileSystem.Lesson
                 Console.WriteLine($" Directory LastAccessTime -  {item.Directory.LastAccessTime}");
                 Console.WriteLine($" Directory Root -  {item.Directory.Root}");
 
+
             }
         }
         static void SearchInDirectory()
         {
-            var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.dll", SearchOption.AllDirectories);
+            var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.dll", SearchOption.);
 
             foreach (var file in files)
                 Console.WriteLine(file);
@@ -154,7 +155,7 @@ namespace FileSystem.Lesson
         {
             File.Delete(Path.Combine(SrcPath, Filename));
         }
-        static void WriteAsTabular(string path, string Filename, List<string[]> data)
+        static void WriteAsTabular(string path, string Filename, List<Customer> data)
         {
 
             StringBuilder sb = new StringBuilder();
@@ -168,7 +169,7 @@ namespace FileSystem.Lesson
             }
             foreach (var usr in data)
             {
-                sb.AppendLine(string.Format($"{usr[0]},{usr[1]}"));
+                //  sb.AppendLine(string.Format($"{usr[0]},{usr[1]}"));
             }
             File.AppendAllText(FilePath, sb.ToString()); // - string 
 
