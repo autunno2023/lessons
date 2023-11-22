@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-
-namespace Dynamics.Lesson
+﻿namespace Dynamics.Lesson
 {
     internal partial class State
     {
-        static IMapper mapper;
+
         string _name;
         int _population;
         string _presindent;
@@ -17,59 +15,17 @@ namespace Dynamics.Lesson
 
         public State()
         {
-            configureMapper();
-        }
-        void configureMapper()
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<State, StateDto>()
-                 .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                 .ForMember(dest => dest.data, opt => opt.MapFrom(src => src.Regioni));
 
-                cfg.CreateMap<Regione, RegioneDto>()
-                   .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                   .ForMember(dest => dest.data, opt => opt.MapFrom(src => src.Province));
-
-                cfg.CreateMap<Provincia, ProvinciaDto>()
-                   .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                   .ForMember(dest => dest.data, opt => opt.MapFrom(src => src.Comuni));
-
-                cfg.CreateMap<Comune, ComuneDto>()
-                   .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                   .ForMember(dest => dest.data, opt => opt.MapFrom(src => src.Cittanini));
-
-                cfg.CreateMap<Cittadino, CittadinoDto>()
-                   .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
-
-                //cfg.CreateMap<Regione, StateDto>()
-                //.ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                //.ForMember(dest => dest.data, opt => opt.MapFrom(src => new RegioneDto[] { mapper.Map<RegioneDto>(src) }));
-            });
-            mapper = config.CreateMapper();
-        }
-        public StateDto CreateRegione(string Name)
-        {
-
-            _regioni = createRegioni();
-            StateDto regionDto = mapper.Map<StateDto>(this);
-            return regionDto;
-            // return new { Regioni = _regioni, Name = this.Name, Population = this.Population };
-            // Non posso attivare un Anonynous Obj con  strutture complesse poichè  ragiona  in termini di Chiave/valore[string]
         }
         public dynamic CreateRegioneDynamic()
         {
-
             _regioni = createRegioni();
-            //StateDto regionDto = mapper.Map<StateDto>(this);
             return this;
             // return new { Regioni = _regioni, Name = this.Name, Population = this.Population };
             // Non posso attivare un Anonynous Obj con  strutture complesse poichè  ragiona  in termini di Chiave/valore[string]
         }
         public dynamic CreateRegione()
         {
-
-
             return new
             {
                 Population,

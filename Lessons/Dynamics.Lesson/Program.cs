@@ -1,15 +1,13 @@
-﻿using AutoMapper;
-using System;
-using static Dynamics.Lesson.State;
+﻿using System;
 
 namespace Dynamics.Lesson
 {
     internal class Program
     {
-        static IMapper mapper;
+
         static void Main(string[] args)
         {
-            configureMapper();
+
             State italy = new State();
             italy.Name = "Italy";
 
@@ -17,14 +15,9 @@ namespace Dynamics.Lesson
 
             Console.WriteLine(RegioneFlatObj.Name);
             Console.WriteLine(RegioneFlatObj.Population);
-            Console.WriteLine(RegioneFlatObj.Regioni); // Non è chaive chiave/valore[string]
-
-            StateDto RegioneComplexObj = italy.CreateRegione("Lombardia");
-            State state = mapper.Map<State>(RegioneComplexObj);
-
+            // Console.WriteLine(RegioneFlatObj.Regioni); // Non è chaive chiave/valore[string]
 
             dynamic RegioneComplexObjDynamic = italy.CreateRegioneDynamic();
-
 
             Console.WriteLine(RegioneComplexObjDynamic.Name);
             Console.WriteLine(RegioneComplexObjDynamic.Population);
@@ -41,39 +34,9 @@ namespace Dynamics.Lesson
                 }
             }
 
-            PrintDynamic(RegioneComplexObj);
-
-
             Console.Read();
         }
-        static void configureMapper()
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<StateDto, State>()
-                .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population));
-                // .ForMember(dest => dest.Regioni, opt => opt.MapFrom(src => src.data));
 
-                cfg.CreateMap<RegioneDto, Regione>()
-                   .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                   .ForMember(dest => dest.Province, opt => opt.MapFrom(src => src.data));
-
-                cfg.CreateMap<ProvinciaDto, Provincia>()
-                   .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                   .ForMember(dest => dest.Comuni, opt => opt.MapFrom(src => src.data));
-
-                cfg.CreateMap<ComuneDto, Comune>()
-                   .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                   .ForMember(dest => dest.Cittanini, opt => opt.MapFrom(src => src.data));
-
-                cfg.CreateMap<CittadinoDto, Cittadino>()
-                   .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
-                //Se ci sono properties di class  che sono private dovrò utilizzare un mix di auomapper e dynamic  
-
-            });
-
-            mapper = config.CreateMapper();
-        }
 
 
 
