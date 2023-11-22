@@ -3,12 +3,14 @@ using System.Linq;
 
 namespace Generics.Lesson
 {
-    public class MyGeneriList<T> where T : class, new()
+    public class MyGenericList<T> where T : class, new()
     {
-        #region HeaderData
+        #region mEMBERS
+
+
 
         static int index = 4;
-        T[] _data = new T[index];
+        T[] _data = new T[index];// 4 
         static T entry = new T();
 
 
@@ -32,11 +34,13 @@ namespace Generics.Lesson
         }
         private void GetMoreSpace()
         {
-            T[] _newArray = new T[_data.Length + 4];
+            T[] _newArray = new T[_data.Length + 4]; // 8 
             Array.Copy(_data, _newArray, _data.Length);
             _data = _newArray;
         }
-        #region Refletions
+
+
+        #region rEFLECTIONS
         public static void PrintProperties()
         {
             var campi = entry.GetType().GetProperties();
@@ -60,6 +64,8 @@ namespace Generics.Lesson
             }
         }
         #endregion
+
+
     }
 
 }

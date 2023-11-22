@@ -8,7 +8,9 @@ namespace Generics.Lesson
     {
         static void Main(string[] args)
         {
-            #region  TYPE CUSTOMERS 
+
+            // pROBLEM #1
+            #region  cUSTOMER
             List<Customer> customers = new List<Customer>();
             customers.Add(new Customer() { Name = "Bruno", Age = 40 });
             customers.Add(new Customer() { Name = "Anna", Age = 30 });
@@ -16,8 +18,10 @@ namespace Generics.Lesson
             customers.Add(new Customer() { Name = "Diego", Age = 20 });
             customers.Add(new Customer() { Name = "Maria", Age = 24 });
             customers.Add(new Customer() { Name = "Laura", Age = 50 });
-            #endregion
-            #region TYPE ACCOUNTS
+            #endregion 
+            CreatePersonCsv(@"D\Logs", "GenericsLessonPersonCsv.csv", customers);
+
+            #region  aCCOUNT
             List<Account> accounts = new List<Account>();
             accounts.Add(new Account() { Saldo = 1000m, AccountNumber = 44545450 });
             accounts.Add(new Account() { Saldo = 2000m, AccountNumber = 54545450 });
@@ -26,14 +30,29 @@ namespace Generics.Lesson
             accounts.Add(new Account() { Saldo = 5000m, AccountNumber = 454542424 });
             accounts.Add(new Account() { Saldo = 6000m, AccountNumber = 454554554 });
             #endregion
-            CreatePersonCsv(@"D\Logs", "GenericsLesson.csv", customers);
-            CreateAccountCsv(@"D\Logs", "GenericsLesson.csv", accounts);
+            CreateAccountCsv(@"D\Logs", "GenericsLessonAccountCsv.csv", accounts);
 
-            #region TYPE ??? 
-            // --- > 1000 TYPES?  
+
+
+            // pROBLEM #2
+            #region bOth TYpes
+
             #endregion
-            #region Generic List
-            MyGeneriList<Person> people = new MyGeneriList<Person>();
+            CreateGenericCsv(@"D\Logs", "GenericsLessonAccountCsv.csv", accounts);
+            CreateGenericCsv(@"D\Logs", "GenericsLessonAccountCsv.csv", customers);
+
+
+            // pROBLEM #3
+            #region aLL tYPES 
+            // 1000 TYPES ????  
+            #endregion
+
+
+
+            #region Generic List 
+
+
+            MyGenericList<Person> people = new MyGenericList<Person>();
 
             #region initialization 
             people.AddItem(new() { Name = "Bruno", Age = 40 });
@@ -46,7 +65,9 @@ namespace Generics.Lesson
             #endregion
         }
 
-        #region tYPE_mETHODS
+        public
+
+        #region tYPED_mETHODS
         static void CreatePersonCsv(string path, string fileName, List<Customer> customers)
         {
             StringBuilder sb = new StringBuilder();
@@ -82,7 +103,7 @@ namespace Generics.Lesson
             File.AppendAllText(completePath, sb.ToString());
         }
         #endregion
-        #region PARTIAL_gNERIC_mETHODS
+        #region pARTIAL_gENERIC_mETHODS
         static void CreateGenericCsv<T>(string path, string fileName, List<T> dati)
         {
             StringBuilder sb = new StringBuilder();
@@ -98,15 +119,15 @@ namespace Generics.Lesson
             foreach (var dato in dati)
             {
                 if (dato is Account account)
-                    sb.AppendLine($"{account.AccountId},{account.Saldo}");
+                    sb.AppendLine($"{account.Saldo},{account.Saldo}");
                 if (dato is Customer customer)
-                    sb.AppendLine($"{customer.Name},{customer.AccountNumber}");
+                    sb.AppendLine($"{customer.Name},{customer.Age}");
             }
 
             File.AppendAllText(completePath, sb.ToString());
         }
         #endregion
-        #region TOTAL_gNERIC_mETHODS
+        #region tOTAL_gENERIC_mETHODS
         static void CreateGenericAllTypesCsv<T>(string path, string fileName, List<T> data)
         {
             // Works with All Types in the World!
