@@ -9,14 +9,26 @@ namespace FileSystem.Lesson
     {
         static void Main(string[] args)
         {
-            List<User> users = new List<User>()
-               {
-                   new User() { Name = "Bruno", Saldo = 4000.00M },
-                   new User() { Name = "Marco", Saldo = 2000.00M }
-               };
+            WriteOnFile(@"D:\logs\FileSystemLesson", "FileSystemLesson");
 
 
-            WriteOnFile(@"c:\FileSystemLesson", @"FileSystemLesson");
+            #region Tabular
+
+            List<string[]> users = new List<string[]>();
+            users.Add(new string[] { "Bruno", "40", "Milano" });
+            users.Add(new string[] { "Marco", "41" });
+            users.Add(new string[] { "Laura", "42" });
+            users.Add(new string[] { "Giorgio", "43", "Milano" });
+            users.Add(new string[] { "Anna", "44" });
+            users.Add(new string[] { "Matteo", "45" });
+            users.Add(new string[] { "Luca", "46", "Milano" });
+            users.Add(new string[] { "Alessandro", "47" });
+            users.Add(new string[] { "Antonio", "48" });
+
+            WriteAsTabular(@"D:\logs\", "TabularFile", users);
+
+            #endregion
+
         }
         static void SpecialPath(string RootPath, String MyDir) // Path  = percorso LOCAL  -> REMOTE path -> SERVER , URL 
         {
@@ -63,22 +75,21 @@ namespace FileSystem.Lesson
             string path = Directory.GetCurrentDirectory(); // -> trova il Path 
             DirectoryInfo dInfos = new DirectoryInfo(path);
 
-            //foreach (var info in dInfos.GetDirectories())
-            //{
-            //    Console.WriteLine(info.Parent);
-            //}
 
             foreach (var item in dInfos.GetFiles())
             {
                 Console.WriteLine($"Name -  {item.Name}");
                 Console.WriteLine($"Parent Directory -  {item.Directory.Parent}");
+                Console.WriteLine($" Directory FullName -  {item.Directory.FullName}");
+                Console.WriteLine($" Directory CreationTime -  {item.Directory.CreationTime}");
+                Console.WriteLine($" Directory LastAccessTime -  {item.Directory.LastAccessTime}");
+                Console.WriteLine($" Directory Root -  {item.Directory.Root}");
+
             }
         }
         static void SearchInDirectory()
         {
-            var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory(),
-                "*.dll",
-                SearchOption.AllDirectories);
+            var files = Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.dll", SearchOption.AllDirectories);
 
             foreach (var file in files)
                 Console.WriteLine(file);
@@ -143,7 +154,7 @@ namespace FileSystem.Lesson
         {
             File.Delete(Path.Combine(SrcPath, Filename));
         }
-        static void WriteAsTabular(string path, string Filename, List<User> data)
+        static void WriteAsTabular(string path, string Filename, List<string[]> data)
         {
 
             StringBuilder sb = new StringBuilder();
@@ -152,14 +163,12 @@ namespace FileSystem.Lesson
 
             if (!File.Exists(FilePath))
             {
-
-                string header = string.Format("Nome,saldo");
+                string header = string.Format("Name,Age");
                 sb.AppendLine(header);
             }
-
             foreach (var usr in data)
             {
-                sb.AppendLine(string.Format($"{usr.Name},{usr.Saldo}"));
+                sb.AppendLine(string.Format($"{usr[0]},{usr[1]}"));
             }
             File.AppendAllText(FilePath, sb.ToString()); // - string 
 
@@ -167,9 +176,15 @@ namespace FileSystem.Lesson
         }
 
     }
-    public class User
+    public class Customer
     {
         public string Name { get; set; }
+        public int Age { get; set; }
+
+    }
+    public class Account
+    {
+        public int AccountId { get; set; }
         public decimal Saldo { get; set; }
 
     }
