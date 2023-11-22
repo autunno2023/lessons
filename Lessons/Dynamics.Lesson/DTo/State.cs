@@ -12,7 +12,7 @@ namespace Dynamics.Lesson
 
 
         public string Name { get => _name; set => _name = value; }
-        public Regione[] Regioni { get => _regioni; set => _regioni = value; }
+        private Regione[] Regioni { get => _regioni; set => _regioni = value; }
         public int Population { get; set; } = 600000;
 
         public State()
@@ -73,7 +73,8 @@ namespace Dynamics.Lesson
             return new
             {
                 Population,
-                Name
+                Name,
+                Regioni
 
             };
         }

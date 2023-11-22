@@ -17,6 +17,7 @@ namespace Dynamics.Lesson
 
             Console.WriteLine(RegioneFlatObj.Name);
             Console.WriteLine(RegioneFlatObj.Population);
+            Console.WriteLine(RegioneFlatObj.Regioni); // Non è chaive chiave/valore[string]
 
             StateDto RegioneComplexObj = italy.CreateRegione("Lombardia");
             State state = mapper.Map<State>(RegioneComplexObj);
@@ -50,8 +51,8 @@ namespace Dynamics.Lesson
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<StateDto, State>()
-                .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
-                .ForMember(dest => dest.Regioni, opt => opt.MapFrom(src => src.data));
+                .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population));
+                // .ForMember(dest => dest.Regioni, opt => opt.MapFrom(src => src.data));
 
                 cfg.CreateMap<RegioneDto, Regione>()
                    .ForMember(dest => dest.Population, opt => opt.MapFrom(src => src.Population))
@@ -76,7 +77,7 @@ namespace Dynamics.Lesson
 
 
 
-        static void PrintDynamic(object dto)
+        static void PrintDynamic(dynamic dto)
         {
             if (dto != null)
             {
