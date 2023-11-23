@@ -10,47 +10,47 @@ namespace Generics.Lesson
 
     public class DataStore<T> where T : class, new()
     {
-
-        public static void WriteonFile<T>(string path, List<T> ts) where T : class, new()
+        public static void WriteonFile(string path, List<T> data)
         {
             List<string> list = new List<string>();
             StringBuilder sb = new StringBuilder();
-            var cols = ts[0].GetType().GetProperties();
+
+
+            var cols = data[0].GetType().GetProperties();
 
             if (File.Exists(path))
             {
                 File.Delete(path);
             }
-            foreach (var col in cols)// cicla tutte le Entity della classe in oggetto
+            foreach (var col in cols)// cicla tutte i menbri  della classe.( Diventeranno le colonne del File CSV ).
             {
-                sb.Append(col.Name);
+                sb.Append(col.Name); // "Name" non è il nome di una proprietà di una class.  Property Name --> REFLECTION
                 sb.Append(',');
             }
 
-            list.Add(sb.ToString().Substring(0, sb.Length - 1));
-            foreach (var row in ts)
+            list.Add(sb.ToString().Substring(0, sb.Length - 1)); // Rimuovi l'ultima virgola 
+
+            foreach (var row in data) // Le nuove righe del file csv
             {
 
                 sb = new StringBuilder();
-                foreach (var col in cols)// cicla tutte le Entity della classe in oggetto
+                foreach (var col in cols)// cicla tutte Entity della classe in oggetto
                 {
-
-                    sb.Append(col.GetValue(row));
+                    sb.Append(col.GetValue(row)); // Prendi il valore della property. 
                     sb.Append(',');
-
-
                 }
-                list.Add(sb.ToString().Substring(0, sb.Length - 1));
+
+                list.Add(sb.ToString().Substring(0, sb.Length - 1)); // Rimuovi l'ultima virgola 
             }
             File.AppendAllLines(path, list);
         }
-        public static List<T> CreateObject<T>(List<string> lines) where T : class, new() //constraint 
+        public static List<T> CreateObject(List<string> csv)
         {
             List<T> list = new List<T>();
-            string[] headers = lines.ElementAt(0).Split(',');
-            lines.RemoveAt(0); // Rimuovo la prima riga (nome colonne) del mio datasource
+            string[] headers = csv.ElementAt(0).Split(',');
+            csv.RemoveAt(0); // Rimuovo la prima riga (nome colonne) del mio datasource
             bool isDatset = true;
-            bool p = true;
+
             T entry = new T(); // Creo istanza per poter estrarre le properties
             PropertyInfo[] prop = entry
                             .GetType() // Prendo il tipo
@@ -74,10 +74,11 @@ namespace Generics.Lesson
             if (isDatset)
             {
                 // INIZIO AD ESTRARRE LE RIGHE CON I DATI  
-                lines.RemoveAt(0); // Rimuovi la prima riga che raprensenta il HEADER [Name,Age]
-                foreach (var line in lines)
+                csv.RemoveAt(0); // Rimuovi la prima riga che raprensenta il HEADER [Name,Age]
+                foreach (var line in csv)
                 {
                     entry = new T();// Per ogni riga del CSV creo un nuovo oggetto di tipo T
+
                     #region eXTRACION
                     int j = 0;
                     string[] columns = line.Split(',');
@@ -90,28 +91,24 @@ namespace Generics.Lesson
                               .SetValue(entry, // Vado a settare il valore predendo invece il valore della cella che corrisponde alla colonna 
                                  Convert.ChangeType(col, //   singola cella del CSV (il valore da settare )
                                      entry.GetType().GetProperty(headers[j])
-                                       .PropertyType)//ritorna il tipo del property dell'oggetto. Mi server per convertire il valore che in qeusto momento non altro che una stringa dal file. 
+                                       .PropertyType)  //ritorna il tipo del property dell'oggetto. Mi server per convertire il valore che in qeusto momento non altro che una stringa dal file. 
                               );
                         }
                         catch
                         {
                             throw;
                         }
-
-
                         j++;
                     }
                     #endregion
+
                     list.Add(entry);
                 }
             }
-            else Console.WriteLine("le proprietà nel file non corrispondono a proprietà oggetto");
+            else Console.WriteLine("Errore: Oggetto e File Csv hanno Dataset diversi!");
 
             return list;
         }
-
-
-
     }
     public class DataStore
     {

@@ -31,9 +31,13 @@ namespace Generics.Lesson
 
             List<string> lines = File.ReadAllLines(path).ToList();
 
-            var data = DataStore<Person>.CreateObject<Person>(lines);
+            var data = DataStore<Person>.CreateObject(lines);
             foreach (var p in data)
+            {
+                Console.Write(p.Name);
+                Console.Write("|");
                 Console.WriteLine(p.Age);
+            }
             #endregion
         }
     }
