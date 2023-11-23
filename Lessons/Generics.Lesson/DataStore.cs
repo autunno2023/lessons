@@ -13,8 +13,8 @@ namespace Generics.Lesson
         public static void WriteonFile(string path, List<T> data)
         {
             List<string> list = new List<string>();
-            StringBuilder sb = new StringBuilder();
 
+            StringBuilder sb = new StringBuilder();
 
             var cols = data[0].GetType().GetProperties();
 
@@ -34,7 +34,7 @@ namespace Generics.Lesson
             {
 
                 sb = new StringBuilder();
-                foreach (var col in cols)// cicla tutte Entity della classe in oggetto
+                foreach (var col in cols) // cicla tutte Entity della classe in oggetto
                 {
                     sb.Append(col.GetValue(row)); // Prendi il valore della property. 
                     sb.Append(',');
@@ -47,16 +47,14 @@ namespace Generics.Lesson
         public static List<T> CreateObject(List<string> csv)
         {
             List<T> list = new List<T>();
-            string[] headers = csv.ElementAt(0).Split(',');
+            string[] headers = csv.ElementAt(0).Split(',');// Header
             csv.RemoveAt(0); // Rimuovo la prima riga (nome colonne) del mio datasource
+
             bool isDatset = true;
-
             T entry = new T(); // Creo istanza per poter estrarre le properties
-            PropertyInfo[] prop = entry
-                            .GetType() // Prendo il tipo
-                                    .GetProperties(); // Prendo le sue properties 
+            PropertyInfo[] prop = entry.GetType().GetProperties(); // Prendo le sue properties 
 
-            if (true)
+            if (isDatset)
             {
                 //VERIFICO SE IL FILE CARICATO HA LA LO STESSO DATASET DELL'OGGETTO T
                 for (int i = 0; i < prop.Length; i++) // Ciclo le properties dell'oggetto  T

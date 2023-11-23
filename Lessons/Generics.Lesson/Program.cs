@@ -29,9 +29,10 @@ namespace Generics.Lesson
 
             #region Generic FileReader 
 
-            List<string> lines = File.ReadAllLines(path).ToList();
+            List<string> lines = File.ReadAllLines(path).ToList();//  leggi i dati dal file CSV
 
-            var data = DataStore<Person>.CreateObject(lines);
+            List<Person> data = DataStore<Person>.CreateObject(lines);
+
             foreach (var p in data)
             {
                 Console.Write(p.Name);
