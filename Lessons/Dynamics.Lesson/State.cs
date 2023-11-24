@@ -19,7 +19,7 @@
         }
         public dynamic GetStateDynamic()
         {
-            return this; // ritorno lo  Oggetto STATE
+            return this; // ritorno tutto l'oggetto STATE
         }
         public dynamic GetPrivateInfoByAnonymous()
         {

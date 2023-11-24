@@ -75,6 +75,8 @@ namespace Dynamics.Lesson
 
 
             #endregion
+
+
             Console.Read();
         }
 
