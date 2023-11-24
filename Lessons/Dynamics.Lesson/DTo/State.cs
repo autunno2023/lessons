@@ -5,30 +5,40 @@
 
         string _name;
         int _population;
-        string _presindent;
         Regione[] _regioni;
 
 
-        public string Name { get => _name; set => _name = value; }
-        private Regione[] Regioni { get => _regioni; set { _regioni = value; } }
-        public int Population { get; set; } = 600000;
+        string Name { get => _name; set => _name = value; }
+        Regione[] Regioni { get => _regioni; set { _regioni = value; } }
+        int Population { get; set; } = 600000;
 
-        public State()
+        public State(string Name)
         {
+            _name = Name;
             _regioni = createRegioni();
         }
-        public dynamic CreateRegioneDynamic()
+        public dynamic GetStateDynamic()
         {
             return this;
         }
-        public dynamic CreateRegione()
+        public dynamic GetPrivateInfoByAnonymous()
         {
             return new
             {
-                Population,
-                Name,
-                _regioni
+                _name,
+                _population
+                // _regioni
+            };
 
+        }
+        public dynamic GetPublicInfoAnonymous()
+        {
+
+            return new
+            {
+                Name,
+                Regioni,
+                Population
             };
         }
         Regione[] createRegioni()
