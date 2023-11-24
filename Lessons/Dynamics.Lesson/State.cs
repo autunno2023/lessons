@@ -19,15 +19,15 @@
         }
         public dynamic GetStateDynamic()
         {
-            return this;
+            return this; // ritorno lo  Oggetto STATE
         }
         public dynamic GetPrivateInfoByAnonymous()
         {
             return new
             {
                 _name,
-                _population
-                // _regioni
+                _population,
+                _regioni
             };
 
         }
