@@ -10,19 +10,16 @@
 
 
         public string Name { get => _name; set => _name = value; }
-        private Regione[] Regioni { get => _regioni; set => _regioni = value; }
+        private Regione[] Regioni { get => _regioni; set { _regioni = value; } }
         public int Population { get; set; } = 600000;
 
         public State()
         {
-
+            _regioni = createRegioni();
         }
         public dynamic CreateRegioneDynamic()
         {
-            _regioni = createRegioni();
             return this;
-            // return new { Regioni = _regioni, Name = this.Name, Population = this.Population };
-            // Non posso attivare un Anonynous Obj con  strutture complesse poichè  ragiona  in termini di Chiave/valore[string]
         }
         public dynamic CreateRegione()
         {
@@ -30,7 +27,7 @@
             {
                 Population,
                 Name,
-                Regioni
+                _regioni
 
             };
         }

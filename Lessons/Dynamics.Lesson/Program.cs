@@ -13,20 +13,17 @@ namespace Dynamics.Lesson
 
             dynamic RegioneFlatObj = italy.CreateRegione();
 
-            Console.WriteLine(RegioneFlatObj.Name);
-            Console.WriteLine(RegioneFlatObj.Population);
-            // Console.WriteLine(RegioneFlatObj.Regioni); // Non è chaive chiave/valore[string]
+            //Console.WriteLine(RegioneFlatObj.Name);
+            //Console.WriteLine(RegioneFlatObj.Population);
+            //Console.WriteLine(RegioneFlatObj.Regioni[0].Name); // Non è chaive chiave/valore[string]
+            //Console.WriteLine(RegioneFlatObj.Regioni[1].Name); // Non è chaive chiave/valore[string]
+            //Console.WriteLine(RegioneFlatObj.Regioni[1].Province[0].Name); // Non è chaive chiave/valore[string]
 
-            dynamic RegioneComplexObjDynamic = italy.CreateRegioneDynamic();
 
-            Console.WriteLine(RegioneComplexObjDynamic.Name);
-            Console.WriteLine(RegioneComplexObjDynamic.Population);
-            Console.WriteLine(RegioneComplexObjDynamic.Regioni[0].Name);
 
-            foreach (var regione in RegioneComplexObjDynamic.Regioni)
+            foreach (var regione in RegioneFlatObj._regioni)
             {
                 Console.WriteLine($"regione:{regione.Name} ");
-
                 Console.WriteLine(regione.Population);
                 foreach (var provincia in regione.Province)
                 {
