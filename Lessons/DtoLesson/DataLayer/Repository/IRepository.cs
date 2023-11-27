@@ -1,31 +1,42 @@
 ﻿using DataLayer.Db;
-using DataLayer.Models;
+using ServiceLayer.Dto;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataLayer.Repository
 {
+
     public interface IRepository<T>
     {
         public List<T> GetAll();
         public T Get(int id);
-        public bool Update();
-        public bool Delete();
+        public bool Update(T obj);
+        public bool Delete(int id);
     }
-    public class HrReposity
+    public class EmployeeRepository : IRepository<EmployeeResponseDTO> // Response
     {
-        public List<Jobs> GetAllJobs()
+        public List<EmployeeResponseDTO> GetAll()
         {
-            using (var db = new HrContext("path\\Jobs"))
+            using (var db = new HumanResourceContext("path\\Employees"))
             {
-                return db.Jobs;
+                return db.Employees.Select(i => new EmployeeResponseDTO(i)).ToList();
             }
         }
-        public List<Employee> GetAllEmployess()
+        public EmployeeResponseDTO Get(int id)
         {
-            using (var db = new HrContext("path\\Employees"))
+            using (var db = new HumanResourceContext("path\\Employees"))
             {
-                return db.Employees;
+                var obj = db.Employees.Where(i => i.id == id).FirstOrDefault();
+                return new EmployeeResponseDTO(obj);
             }
+        }
+        public bool Update(EmployeeResponseDTO obj)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool Delete(int id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -33,7 +44,7 @@ namespace DataLayer.Repository
     #region Generic repository
     public class GenericRepository<T> : IRepository<T>
     {
-        public bool Delete()
+        public bool Delete(int id)
         {
             throw new System.NotImplementedException();
         }
@@ -42,22 +53,29 @@ namespace DataLayer.Repository
         {
             throw new System.NotImplementedException();
         }
-
         public List<T> GetAll()
         {
-            using (var db = new GericContext<T>("path"))
+            using (var db = new GenericContext<T>("path"))
             {
                 return db.GetAll();
             }
         }
 
-        public bool Update()
+        public bool Update(T obj)
         {
             throw new System.NotImplementedException();
         }
-
-
     }
 
     #endregion
+    #region Generic Repository <RepositoryType, Request and Response >
+    public interface IRepository<T, RQ, RS>
+    {
+        public List<RQ> GetAll();
+        public RS Get(int id);
+        public bool Update(T obj);
+        public bool Delete(int id);
+    }
+    #endregion
+
 }

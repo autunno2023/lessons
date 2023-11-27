@@ -5,16 +5,17 @@ using System.Collections.Generic;
 
 namespace DataLayer.Db
 {
-    internal class HrContext : IDisposable
+    internal class HumanResourceContext : IDisposable
     {
         public List<Employee> Employees { get; set; }
         public List<Jobs> Jobs { get; set; }
         public List<JobContract> JobsContract { get; set; }
 
-        public HrContext(string config)
+        public HumanResourceContext(string config)
         {
-            //  Employees =  read from File; 
-            //  Jobs =  read from File; 
+            //  Employees =  read from Csv; 
+            //  Jobs =  read from File Csv; 
+            //  JobsContract =  read from Csv; 
         }
 
         public void Dispose()
