@@ -9,7 +9,7 @@ namespace DataLayer.DbContext
         {
 
         }
-        protected List<T> ReadFromDb<T>(string config) where T : class
+        protected List<T> ReadFromDb<T>(string config) where T : class, new()
         {
             // return ReadFromFile(_config);   ---> Dall'Utility che abbiamo creato
             return null;

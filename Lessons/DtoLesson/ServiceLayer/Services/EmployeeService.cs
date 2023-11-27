@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ServiceLayer.Services
 {
-    internal class EmployeeService
+    public class EmployeeService
     {
 
         readonly EmployeeRepository Repository;

@@ -2,10 +2,10 @@
 {
     public class EmployeeViewDTO : HRDto
     {
-        internal string Employee { get; set; }
-        internal string JobTitle { get; set; }
-        internal string Company { get; set; }
-        public EmployeeViewDTO(EmployeeResponseDTO employeeDTOs)
+        public string Employee { get; set; }
+        public string JobTitle { get; set; }
+        public string Company { get; set; }
+        internal EmployeeViewDTO(EmployeeResponseDTO employeeDTOs)
         {
             Employee = employeeDTOs.EmployeeFullName;
             JobTitle = employeeDTOs.JobTitle;
