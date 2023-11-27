@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 
 
-namespace DataLayer.Db
+namespace DataLayer.DbContext
 {
-    internal class HumanResourceContext : IDisposable
+    internal class HumanResourceContext : DbContext, IDisposable
     {
         public List<Employee> Employees { get; set; }
         public List<Jobs> Jobs { get; set; }
         public List<JobContract> JobsContract { get; set; }
 
-        public HumanResourceContext(string config)
+        public HumanResourceContext(string config) : base(config)
         {
-            //  Employees =  read from Csv; 
-            //  Jobs =  read from File Csv; 
-            //  JobsContract =  read from Csv; 
+            Employees = ReadFromDb<Employee>("");
+            Jobs = ReadFromDb<Jobs>("");
+            JobsContract = ReadFromDb<JobContract>("");
         }
 
         public void Dispose()

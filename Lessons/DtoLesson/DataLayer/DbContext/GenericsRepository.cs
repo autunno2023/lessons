@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace DataLayer.Db
+namespace DataLayer.DbContext
 {
     internal class GenericContext<T> : DbContext, IDisposable
     {

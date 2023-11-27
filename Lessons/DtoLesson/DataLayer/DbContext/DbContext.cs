@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace DataLayer.Db
+namespace DataLayer.DbContext
 {
     abstract internal class DbContext
     {
-        string _config;
 
         public DbContext(string config)
         {
-            _config = config;
+
         }
-        public List<T> ReadFromDb<T>() where T : class
+        protected List<T> ReadFromDb<T>(string config) where T : class
         {
-            // return ReadFromFile(_config); 
+            // return ReadFromFile(_config);   ---> Dall'Utility che abbiamo creato
             return null;
         }
     }
