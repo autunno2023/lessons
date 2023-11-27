@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Dynamics.Lesson
 {
@@ -7,11 +8,13 @@ namespace Dynamics.Lesson
 
         static void Main(string[] args)
         {
+            #region Distrubiuto 
+            //getDto();
+            getDynamicObj();
+            #endregion
+
 
             State italy = new State("Italy");
-
-
-
             #region PublicInfo   
             // Ritorno i membri PUBLIC dello State tramite Anonymous + dynamic 
             Console.WriteLine("\n---- Ritorno i membri publici dello State tramite Anonymous + dynamic ----\n");
@@ -24,8 +27,6 @@ namespace Dynamics.Lesson
             Console.WriteLine(PublicInfo.Regioni[1].Name);
             Console.WriteLine(PublicInfo.Regioni[1].Province[0].Name);
             #endregion
-
-
             #region PrivateInfo  
             // Ritorno i membri PRIVATE dello State tramite Anonymous + dynamic 
             Console.WriteLine("\n----Ritorno i membri privati dello State tramite Anonymous + dynamic----\n");
@@ -47,8 +48,6 @@ namespace Dynamics.Lesson
             #endregion
 
             #endregion
-
-
             #region StateDynamic 
             // Ritorno tutto l'oggetto State tramite Dynamic
 
@@ -80,36 +79,31 @@ namespace Dynamics.Lesson
             Console.Read();
         }
 
-
-
-
-        static void PrintDynamic(dynamic dto)
+        static Person? getDto()
         {
-            if (dto != null)
-            {
-                foreach (var property in dto.GetType().GetProperties())
-                {
-                    var propertyValue = property.GetValue(dto, null);
-
-                    if (!property.PropertyType.IsArray)
-                    {
-                        if (propertyValue != null)
-                        {
-                            Console.WriteLine($" : {property.Name}: {propertyValue}");
-                        }
-                    }
-                    else
-                    {
-                        foreach (var element in propertyValue)
-                        {
-                            Console.WriteLine(element.GetType().Name.ToUpper());
-                            PrintDynamic(element);
-                        }
-                    }
-                }
-            }
+            string jsonString = "{\"Name\":\"John\", \"Age\":30}";
+            Person? person = JsonConvert.DeserializeObject<Person>(jsonString);
+            Console.WriteLine($"Name: {person?.Name},\n Age: {person?.Age}");
+            return person;
         }
+        static Person? getDynamicObj()
+        {
+            string jsonString = "{\"Fullname\":\"John Doe\", \"Age\":30}";
+            dynamic person = JsonConvert.DeserializeObject<Person>(jsonString); //  non Piu tipizzato ma Dinamico
+            Console.WriteLine($"Name: {person?.Name ?? person?.Fullname}, Age: {person?.Age}");  // Coalescing Operators
+            return person;
+        }
+
+
     }
+    class Person
+    {
+
+        public string? Name { get; set; }
+        public int? Age { get; set; }
+
+    }
+
 }
 
 
