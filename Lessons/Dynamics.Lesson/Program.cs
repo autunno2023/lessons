@@ -9,7 +9,7 @@ namespace Dynamics.Lesson
         static void Main(string[] args)
         {
             #region Deserialize 
-            //getDto();
+            getObj();
             getDynamicObj();
             #endregion 
 
@@ -68,7 +68,7 @@ namespace Dynamics.Lesson
             Console.Read();
         }
 
-        static Person? getDto()
+        static Person? getObj()
         {
             string jsonString = "{\"Name\":\"John\", \"Age\":30}";
             Person? person = JsonConvert.DeserializeObject<Person>(jsonString); // tipizzato
