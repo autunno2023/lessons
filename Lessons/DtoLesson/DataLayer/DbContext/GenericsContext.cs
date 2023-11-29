@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace DataLayer.DbContext
 {
+    public interface IDbContext<T>
+    {
+
+    }
     internal class GenericContext<T> : DbContext, IDisposable
     {
         //public List<Employee> Employees { get; set; }

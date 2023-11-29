@@ -4,9 +4,20 @@ namespace ServiceLayer.Dto
 {
     public class HRDto
     {
+        public HRDto(Employee employee)
+        {
 
+        }
+        public HRDto(EmployeeServiceDTO employeeDTOs)
+        {
+
+        }
+        public HRDto()
+        {
+
+        }
     }
-    public class EmployeeResponseDTO : HRDto
+    public class EmployeeServiceDTO : HRDto
     {
         internal int id;
         internal string firstName;
@@ -19,12 +30,16 @@ namespace ServiceLayer.Dto
         public string JobTitle { get { return firstName + " " + lastName; } }
         public string Company { get { return company.Email; } }
 
-        internal EmployeeResponseDTO(Employee employee)
+        internal EmployeeServiceDTO(Employee employee) : base(employee)
         {
             firstName = employee.Name;
             lastName = employee.lastName;
             email = employee.Contacts.Email;
             company = employee.Jobs.Company;
+        }
+        public EmployeeServiceDTO()
+        {
+
         }
     }
 }

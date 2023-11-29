@@ -13,24 +13,24 @@ namespace DataLayer.Repository
         public bool Update(T obj);
         public bool Delete(int id);
     }
-    public class EmployeeRepository : IRepository<EmployeeResponseDTO> // Response
+    public class EmployeeRepository : IRepository<EmployeeServiceDTO> // Response
     {
-        public List<EmployeeResponseDTO> GetAll()
+        public List<EmployeeServiceDTO> GetAll()
         {
             using (var db = new HumanResourceContext("path\\Employees"))
             {
-                return db.Employees.Select(i => new EmployeeResponseDTO(i)).ToList();
+                return db.Employees.Select(i => new EmployeeServiceDTO(i)).ToList();
             }
         }
-        public EmployeeResponseDTO Get(int id)
+        public EmployeeServiceDTO Get(int id)
         {
             using (var db = new HumanResourceContext("path\\Employees"))
             {
                 var obj = db.Employees.Where(i => i.id == id).FirstOrDefault();
-                return new EmployeeResponseDTO(obj);
+                return new EmployeeServiceDTO(obj);
             }
         }
-        public bool Update(EmployeeResponseDTO obj)
+        public bool Update(EmployeeServiceDTO obj)
         {
             throw new System.NotImplementedException();
         }
@@ -68,13 +68,36 @@ namespace DataLayer.Repository
     }
 
     #endregion
-    #region Generic Repository <RepositoryType, Request and Response >
-    public interface IRepository<T, RQ, RS>
+    #region Generic Repository <ContextType, Request and Response > 
+    // 
+    public interface IRepository<T, S>
     {
-        public List<RQ> GetAll();
-        public RS Get(int id);
+        public List<S> GetAll();
+        public S Get(int id);
         public bool Update(T obj);
         public bool Delete(int id);
+    }
+    public class GenericRepository<T, S> : IRepository<T, S>
+    {
+        public bool Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public S Get(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<S> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Update(T obj)
+        {
+            throw new System.NotImplementedException();
+        }
     }
     #endregion
 

@@ -1,4 +1,5 @@
-﻿using ServiceLayer.Dto;
+﻿using DataLayer.Models;
+using ServiceLayer.Dto;
 using ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Presentation
         static void Main(string[] args)
         {
             employeeViewDTOs = new EmployeeService().GetAllEmployees();
+            employeeViewDTOs = new HRServices<Employee, EmployeeServiceDTO, EmployeeViewDTO>().GetAll();
             foreach (var employeeViewDTO in employeeViewDTOs)
             {
                 Console.WriteLine(employeeViewDTO.Company);

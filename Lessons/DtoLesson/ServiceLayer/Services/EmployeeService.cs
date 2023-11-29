@@ -16,7 +16,7 @@ namespace ServiceLayer.Services
         public List<EmployeeViewDTO> GetAllEmployees()
         {
             List<EmployeeViewDTO> EmployeeViewDTO = new();
-            List<EmployeeResponseDTO> EmployeeDTO = Repository.GetAll().ToList();
+            List<EmployeeServiceDTO> EmployeeDTO = Repository.GetAll().ToList();
 
             foreach (var item in EmployeeDTO)
             {
@@ -27,7 +27,7 @@ namespace ServiceLayer.Services
         public List<EmployeeViewDTO> GetAllEmployeesByCompany(string companyName)
         {
             List<EmployeeViewDTO> EmployeeViewDTO = new();
-            List<EmployeeResponseDTO> EmployeeDTO = Repository.GetAll().ToList();
+            List<EmployeeServiceDTO> EmployeeDTO = Repository.GetAll().ToList();
 
             foreach (var item in EmployeeDTO.Where(i => i.Company == companyName))
             {
@@ -38,7 +38,7 @@ namespace ServiceLayer.Services
         public List<EmployeeViewDTO> GetAllEmployeeByName(string Name)
         {
             List<EmployeeViewDTO> EmployeeViewDTO = new();
-            List<EmployeeResponseDTO> EmployeeDTO = Repository.GetAll().ToList();
+            List<EmployeeServiceDTO> EmployeeDTO = Repository.GetAll().ToList();
 
             foreach (var item in EmployeeDTO.Where(i => i.Name == Name))
             {

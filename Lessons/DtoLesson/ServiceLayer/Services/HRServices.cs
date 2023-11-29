@@ -1,4 +1,5 @@
-﻿using DataLayer.Repository;
+﻿using DataLayer.Models;
+using DataLayer.Repository;
 using ServiceLayer.Dto;
 using System;
 using System.Collections.Generic;
@@ -7,22 +8,27 @@ using System.Collections.Generic;
 namespace ServiceLayer.Services
 {
 
-    internal class HRServices<T, RQ, RP> where T : IRepository<T, RQ, RP>, new() where RQ : HRDto, new()
+    public class HRServices<T, S, V>
+        where T : HR, new()
+        where V : HRDto, new()
+
     {
-        readonly T Repository;
+        readonly IRepository<T, S> Repository;
         public HRServices()
         {
-            Repository = new T();
+            Repository = new GenericRepository<T, S>();
         }
-        public List<RP> GetAll()
+        public List<V> GetAll()
         {
-            List<RP> ViewDTO = new();
-            List<RQ> ServiceDTO = Repository.GetAll();
+            List<V> ViewDTO = new();  // V -> ViewDto
+            List<S> ServiceDTO = Repository.GetAll(); // S -> ServiceDto
 
-            foreach (RQ item in ServiceDTO)
+            foreach (S item in ServiceDTO)
             {
-                //  ViewDTO.Add(new RP(item));  
-                ViewDTO.Add((RP)Activator.CreateInstance(typeof(RQ)));
+                //  ViewDTO.Add(new S(item));    
+                V instance = (V)Activator.CreateInstance(typeof(V), new object[] { item });
+                ViewDTO.Add(instance);
+
             }
             return ViewDTO;
         }
