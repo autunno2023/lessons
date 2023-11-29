@@ -9,9 +9,9 @@ namespace Dynamics.Lesson
         static void Main(string[] args)
         {
             #region Deserialize 
-            getObj();
-            getDynamicObj();
-            #endregion 
+            //  getObj();
+            // getDynamicObj();
+            #endregion
 
 
 
@@ -22,22 +22,22 @@ namespace Dynamics.Lesson
             Console.WriteLine("\n----GetStateDynamic Private Info ----\n");
 
 
-            dynamic StateDynamic = italy.GetStateDynamic();
+            //dynamic StateDynamic = italy.GetStateDynamic();
 
 
-            Console.WriteLine(StateDynamic.Name);
-            Console.WriteLine(StateDynamic.Population);
-            Console.WriteLine(StateDynamic.Regioni[0].Name);
-            Console.WriteLine(StateDynamic.Regioni[1].Name);
-            Console.WriteLine(StateDynamic.Regioni[1].Province[0].Name);
+            //Console.WriteLine(StateDynamic.Name);
+            //Console.WriteLine(StateDynamic.Population);
+            //Console.WriteLine(StateDynamic.Regioni[0].Name);
+            //Console.WriteLine(StateDynamic.Regioni[1].Name);
+            //Console.WriteLine(StateDynamic.Regioni[1].Province[0].Name);
 
             Console.WriteLine("         \n----StateDynamic Private  Info----\n");
 
-            Console.WriteLine(StateDynamic._name);
-            Console.WriteLine(StateDynamic._population);
-            Console.WriteLine(StateDynamic._regioni[0].Name);
-            Console.WriteLine(StateDynamic._regioni[1].Name);
-            Console.WriteLine(StateDynamic._regioni[1].Province[0].Name);
+            //Console.WriteLine(StateDynamic._name);
+            //Console.WriteLine(StateDynamic._population);
+            //Console.WriteLine(StateDynamic._regioni[0].Name);
+            //Console.WriteLine(StateDynamic._regioni[1].Name);
+            //Console.WriteLine(StateDynamic._regioni[1].Province[0].Name);
 
 
 
@@ -70,22 +70,24 @@ namespace Dynamics.Lesson
 
         static Person? getObj()
         {
-            string jsonString = "{\"Name\":\"John\", \"Age\":30}";
+            string jsonString = "{\"Name\":\"John\", \"Age\":30}"; //  Gas -> Spedito 
             Person? person = JsonConvert.DeserializeObject<Person>(jsonString); // tipizzato
+            person = null;
             Console.WriteLine($"Name: {person?.Name},\n Age: {person?.Age}");
             return person;
+
+
         }
         static Person? getDynamicObj()
         {
-            string jsonString = "{\"Fullname\":\"John Doe\", \"Age\":30}";
+            string jsonString = "{\"Fullname\":\"John Doe\", \"Age\":30}"; // Gas 
             dynamic? person = JsonConvert.DeserializeObject(jsonString); //  utilizza tipizzato ma Dinamico
-            Console.WriteLine($"Name: {person?.Name ?? person?.Fullname}, Age: {person?.Age}");  // Coalescing Operators
+            Console.WriteLine($"Name: {person?.Name ?? person?.Fullname ?? "Ciao"}, Age: {person?.Age}");  // Coalescing Operators
             return person;
         }
     }
     class Person
     {
-
         public string? Name { get; set; }
         public int? Age { get; set; }
 

@@ -23,7 +23,7 @@
         }
         public dynamic GetPrivateInfoByAnonymous()
         {
-            return new
+            return new // oggetto anonimo
             {
                 _name,
                 _population,
@@ -46,7 +46,7 @@
             return new Regione[] { new Regione("Lombardia"), new Regione("Veneto") };
         }
         #region Nested Class
-        public class Regione
+        class Regione
         {
             string _name;
             int _poplation;
