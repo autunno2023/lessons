@@ -8,7 +8,7 @@ namespace ServiceLayer.Dto
         {
 
         }
-        public HRDto(EmployeeServiceDTO employeeDTOs)
+        internal HRDto(EmployeeServiceDTO employeeDTOs)
         {
 
         }
@@ -17,7 +17,7 @@ namespace ServiceLayer.Dto
 
         }
     }
-    public class EmployeeServiceDTO : HRDto
+    internal class EmployeeServiceDTO : HRDto
     {
         internal int id;
         internal string firstName;
