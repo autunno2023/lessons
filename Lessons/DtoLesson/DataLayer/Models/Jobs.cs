@@ -2,8 +2,8 @@
 {
     public class Jobs : HR
     {
-        internal string Title { get; set; }
-        internal Company Company { get; set; }
-        internal JobContract Contract { get; set; }
+        public string Title { get; set; }
+        public Company Company { get; set; }
+        public JobContract Contract { get; set; }
     }
 }

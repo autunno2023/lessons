@@ -2,10 +2,14 @@
 
 namespace DataLayer.DbContext
 {
-    abstract internal class DbContext
+    public abstract class DbContext
     {
-
-        public DbContext(string config)
+        string _config;
+        protected DbContext(string config)
+        {
+            _config = config;
+        }
+        public DbContext()
         {
 
         }
