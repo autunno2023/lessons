@@ -6,7 +6,6 @@ namespace DataLayer.DbContext
 {
     public class PlacementDbContext : DbContext
     {
-
         public List<JobContract> JobsContract { get; set; }
 
         public PlacementDbContext(string config) : base(config)

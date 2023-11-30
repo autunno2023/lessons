@@ -6,19 +6,8 @@
         public string Name { get; set; }
         public int ContactId { get; set; }
         public int JobContractId { get; set; }
+        public string SocialNumber { get; set; }
 
     }
-    public enum County
-    {
-        IT,
-        DE,
-        UK,
-        FR,
-        ES,
-        PT,
-        PL,
-        DK,
-        SE,
-        CH
-    }
+
 }
