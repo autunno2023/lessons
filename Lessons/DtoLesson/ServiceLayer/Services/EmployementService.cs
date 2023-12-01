@@ -25,22 +25,25 @@ namespace ServiceLayer.Services
             }
             return instance;
         }
-        public List<EmployeesServiceDTo> GetAllEmployees()
+        public List<EmployeesViewModelDTo> GetAllEmployees()
         {
-            return DbContext.Employees.ToList();
+            return DbContext.employeesServiceDTos.Cast<EmployeesViewModelDTo>().ToList();
         }
-        public List<EmployeesServiceDTo> GetAllUnemployed()
+        public List<EmployeesViewModelDTo> GetAllUnemployed()
         {
-            return GetAllEmployees().Where(i => i.JobContractId is 0).ToList();
+            return DbContext.employeesServiceDTos
+                .Where(i => i.JobContractId is 0)
+                .Cast<EmployeesViewModelDTo>().ToList();
         }
         public EmployeesViewModelDTo GetEmployee(int Id)
         {
-            return GetAllEmployees().Where(i => i.Id == Id).FirstOrDefault();
+            return DbContext.employeesServiceDTos
+                .Where(i => i.Id == Id).FirstOrDefault();
         }
         public EmployeesViewModelDTo GetEmployeeAndContracts(int Id)
         {
 
-            EmployeesServiceDTo employeesServiceDTo = GetAllEmployees().Where(i => i.Id == Id).FirstOrDefault();
+            EmployeesServiceDTo employeesServiceDTo = DbContext.employeesServiceDTos.Where(i => i.Id == Id).FirstOrDefault();
 
             if (CheckAccount(employeesServiceDTo))
                 return employeesServiceDTo;

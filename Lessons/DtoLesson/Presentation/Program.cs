@@ -1,5 +1,4 @@
 ﻿using DataLayer.Dto;
-using DataLayer.Models;
 using ServiceLayer.Services;
 using System;
 
@@ -14,16 +13,22 @@ namespace Presentation
 
 
 
-            foreach (Employee employee in employementService.GetAllEmployees())
+            foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
             {
-                Console.Write($"Nome:{employee.Name} | SocialNumber: {employee.SocialNumber}");
+                Console.Write($"Nome:{employee.Name} "
+                    //+
+                    //$"| SocialNumber: {employee}"
+                    );
                 Console.WriteLine();
             }
 
             Console.WriteLine("\n--------------- Unemployed ---------------------\n");
-            foreach (Employee employee in employementService.GetAllUnemployed())
+            foreach (EmployeesViewModelDTo employee in employementService.GetAllUnemployed())
             {
-                Console.Write($"Nome:{employee.Name} | SocialNumber: {employee.SocialNumber}");
+                Console.Write($"Nome:{employee.Name} "
+                    //+
+                    //$"| SocialNumber: {employee.SocialNumber}"
+                    );
                 Console.WriteLine();
 
             }

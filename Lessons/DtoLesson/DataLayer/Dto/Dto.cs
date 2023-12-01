@@ -26,7 +26,7 @@ namespace DataLayer.Dto
 
         internal EmployeesServiceDTo(Employee Employee) : base(Employee)
         {
-            Name = Employee.Name;
+            Name = Employee?.Name;
             JobContractId = Employee.ContactId;
 
         }

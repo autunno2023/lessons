@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using DataLayer.Dto;
+using DataLayer.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,21 +10,21 @@ namespace DataLayer.DbContext
     // ORM
     public class HumanResouresDbContext : DbContext
     {
+        List<Employee> Employees { get; set; }
 
+        public List<EmployeesServiceDTo> employeesServiceDTos
+        {
+            get
+            {
+                // return Employees.Cast<EmployeesServiceDTo>().ToList(); 
+                return Employees.Select(emp => new EmployeesServiceDTo(emp)).ToList();
+
+            }
+
+        }
         public List<JobContract> JobsContracts { get; set; }
         public List<Jobs> Jobs { get; set; }
-        public List<Employee> Employees { get; set; }
-        //{
-        //    get
-        //    {
-        //        // return _employees.Cast<EmployeesServiceDTo>().ToList();
-        //        
-        //    }
-        //    set
-        //    {
 
-        //    }
-        //}
 
 
 
