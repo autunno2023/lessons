@@ -38,8 +38,6 @@ namespace DataLayer.DbContext
         {
 
         }
-
-
         #region Services 
         protected List<T> ReadFromDb<T>(string config) where T : class, new()
         {

@@ -13,7 +13,7 @@ namespace Presentation
 
 
 
-            foreach (Employee employee in employementService.GetAllEmployees())
+            foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
             {
                 Console.Write($"Nome:{employee.Name} | SocialNumber: {employee.SocialNumber}");
                 Console.WriteLine();

@@ -25,9 +25,10 @@ namespace ServiceLayer.Services
             }
             return instance;
         }
-        public List<EmployeesServiceDTo> GetAllEmployees()
+        public List<EmployeesViewModelDTo> GetAllEmployees()
         {
-            return DbContext.Employees.ToList();
+            EmployeesViewModelDTo employeesViewModelDTo = DbContext.Employees;
+            return employeesViewModelDTo;
         }
         public List<EmployeesServiceDTo> GetAllUnemployed()
         {

@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using DataLayer.Dto;
+using DataLayer.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace DataLayer.DbContext
 
         public List<JobContract> JobsContracts { get; set; }
         public List<Jobs> Jobs { get; set; }
-        public List<Employee> Employees { get; set; }
+        public List<EmployeesServiceDTo> Employees { get; set; }
         //{
         //    get
         //    {
