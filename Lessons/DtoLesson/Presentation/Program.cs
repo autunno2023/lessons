@@ -1,5 +1,4 @@
-﻿using DataLayer.Models;
-using ServiceLayer.Dto;
+﻿using DataLayer.Dto;
 using ServiceLayer.Services;
 using System;
 
@@ -30,12 +29,12 @@ namespace Presentation
 
 
 
-            #region 
+            //#region 
             EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(1);
             Console.WriteLine($"Nome:" + viewModelDTo.Name);
 
 
-            #endregion
+
             Console.Read();
 
 

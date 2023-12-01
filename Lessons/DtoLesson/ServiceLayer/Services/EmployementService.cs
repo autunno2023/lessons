@@ -1,7 +1,6 @@
 ﻿using DataLayer.DbContext;
 using DataLayer.Dto;
 using DataLayer.Models;
-using ServiceLayer.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,23 +25,22 @@ namespace ServiceLayer.Services
             }
             return instance;
         }
-        public List<Employee> GetAllEmployees()
+        public List<EmployeesServiceDTo> GetAllEmployees()
         {
             return DbContext.Employees.ToList();
         }
-        public List<Employee> GetAllUnemployed()
+        public List<EmployeesServiceDTo> GetAllUnemployed()
         {
             return GetAllEmployees().Where(i => i.JobContractId is 0).ToList();
         }
         public EmployeesViewModelDTo GetEmployee(int Id)
         {
-            return new EmployeesServiceDTo(GetAllEmployees().Where(i => i.Id == Id).FirstOrDefault());
+            return GetAllEmployees().Where(i => i.Id == Id).FirstOrDefault();
         }
         public EmployeesViewModelDTo GetEmployeeAndContracts(int Id)
         {
-            // Trasformo Il mio oggetto Employee in Dto EmployeesServiceDTo.
-            // (Solo dismostrattivo. Questo esemio in realtà inutile poiche ho sempre accesso diretto all'aggetto 'Employee')
-            EmployeesServiceDTo employeesServiceDTo = new EmployeesServiceDTo(GetAllEmployees().Where(i => i.Id == Id).FirstOrDefault());
+
+            EmployeesServiceDTo employeesServiceDTo = GetAllEmployees().Where(i => i.Id == Id).FirstOrDefault();
 
             if (CheckAccount(employeesServiceDTo))
                 return employeesServiceDTo;

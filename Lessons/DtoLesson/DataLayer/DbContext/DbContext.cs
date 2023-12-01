@@ -60,7 +60,7 @@ namespace DataLayer.DbContext
 
             if (true)
             {
-                for (int i = 0; i < prop.Length; i++) // Ciclo le properties dell'oggetto  T
+                for (int i = 0; i < headers.Length; i++) // Ciclo le properties dell'oggetto  T
                 {
                     PropertyInfo prp = entry.GetType().GetProperty(headers[i]);
                     if (prp is not null) // ciclo le colonne e le properties insieme
@@ -96,16 +96,10 @@ namespace DataLayer.DbContext
                             var isEmpty = string.IsNullOrEmpty(columns[j]) ? true : false;
                             var data = columns[j];
 
-                            if (!isEmpty)
-                            {
-                                object convertedValue = (columns[j] == null || columns[j].Trim().Equals(string.Empty)) ? null : Convert.ChangeType(columns[j], targetType);
-                                e.SetValue(entry, convertedValue);
-                            }
-                            else
-                            {
-                                //Console.WriteLine($"columnsData is empty or null. Build a checker!!");
-                                //Console.WriteLine($"Line {i},  Column {j}");
-                            }
+                            object convertedValue = (columns[j] == null || columns[j].Trim().Equals(string.Empty)) ? null : Convert.ChangeType(columns[j], targetType);
+                            e.SetValue(entry, convertedValue);
+
+
 
 
 

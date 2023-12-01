@@ -2,8 +2,11 @@
 {
     public class Jobs : HR
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
-        public Company Company { get; set; }
-        public JobContract Contract { get; set; }
+        public string CompanyName { get; set; }
+        public JobContract JobContract { get; set; }
+
     }
 }
