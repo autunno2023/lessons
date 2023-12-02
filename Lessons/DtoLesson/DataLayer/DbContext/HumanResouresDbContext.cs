@@ -16,9 +16,7 @@ namespace DataLayer.DbContext
         {
             get
             {
-                // return Employees.Cast<EmployeesServiceDTo>().ToList(); 
                 return Employees.Select(emp => new EmployeesServiceDTo(emp)).ToList();
-
             }
 
         }

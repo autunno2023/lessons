@@ -27,12 +27,13 @@ namespace ServiceLayer.Services
         }
         public List<EmployeesViewModelDTo> GetAllEmployees()
         {
+
             return DbContext.employeesServiceDTos.Cast<EmployeesViewModelDTo>().ToList();
         }
         public List<EmployeesViewModelDTo> GetAllUnemployed()
         {
             return DbContext.employeesServiceDTos
-                .Where(i => i.JobContractId is 0)
+                .Where(i => i.Salary == 0)
                 .Cast<EmployeesViewModelDTo>().ToList();
         }
         public EmployeesViewModelDTo GetEmployee(int Id)
