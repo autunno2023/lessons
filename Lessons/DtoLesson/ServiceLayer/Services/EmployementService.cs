@@ -28,18 +28,18 @@ namespace ServiceLayer.Services
         public List<EmployeesViewModelDTo> GetAllEmployees()
         {
 
-            return DbContext.employeesServiceDTos.Cast<EmployeesViewModelDTo>().ToList();
+            return DbContext.employeesServiceDTos.Select(i => new EmployeesViewModelDTo(i)).ToList();
         }
         public List<EmployeesViewModelDTo> GetAllUnemployed()
         {
             return DbContext.employeesServiceDTos
-                .Where(i => i.Salary == 0)
-                .Cast<EmployeesViewModelDTo>().ToList();
+                .Where(i => i.Salary == 0).Select(i => new EmployeesViewModelDTo(i)).ToList();
+
         }
         public EmployeesViewModelDTo GetEmployee(int Id)
         {
-            return DbContext.employeesServiceDTos
-                .Where(i => i.Id == Id).FirstOrDefault();
+            return new EmployeesViewModelDTo(DbContext.employeesServiceDTos
+             .FirstOrDefault(i => i.Id == Id));
         }
         public EmployeesViewModelDTo GetEmployeeAndContracts(int Id)
         {
@@ -47,7 +47,7 @@ namespace ServiceLayer.Services
             EmployeesServiceDTo employeesServiceDTo = DbContext.employeesServiceDTos.Where(i => i.Id == Id).FirstOrDefault();
 
             if (CheckAccount(employeesServiceDTo))
-                return employeesServiceDTo;
+                return new EmployeesViewModelDTo(employeesServiceDTo);
             else
                 return null;
         }

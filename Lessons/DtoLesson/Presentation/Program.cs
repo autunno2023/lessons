@@ -21,9 +21,8 @@ namespace Presentation
 
             foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
             {
-                Console.WriteLine(employee.Id);
-                Console.WriteLine(employee.Name);
-                // PrintEmployeesViewModelDTo(employee);
+
+                PrintEmployeesViewModelDTo(employee);
                 Console.WriteLine();
             }
 
@@ -32,9 +31,8 @@ namespace Presentation
             Console.ResetColor();
             foreach (EmployeesViewModelDTo employee in employementService.GetAllUnemployed())
             {
-                Console.WriteLine(employee.Id);
-                Console.WriteLine(employee.Name);
-                // PrintEmployeesViewModelDTo(employee);
+
+                PrintEmployeesViewModelDTo(employee);
                 Console.WriteLine();
 
             }
@@ -55,11 +53,6 @@ namespace Presentation
 
             foreach (var prop in properties)
             {
-                // Check for the SensitiveAttribute on each property
-                if (Attribute.IsDefined(prop, typeof(SensitiveAttribute)))
-                {
-                    continue; // Skip this property as it's marked sensitive
-                }
 
                 object propValue = prop.GetValue(obj, null);
                 sb.AppendLine($"{prop.Name}: {propValue}");
