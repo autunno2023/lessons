@@ -22,7 +22,7 @@ namespace Presentation
             foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
             {
 
-                PrintEmployeesViewModelDTo(employee);
+                PrintGenericProps(employee);
                 Console.WriteLine();
             }
 
@@ -32,7 +32,7 @@ namespace Presentation
             foreach (EmployeesViewModelDTo employee in employementService.GetAllUnemployed())
             {
 
-                PrintEmployeesViewModelDTo(employee);
+                PrintGenericProps(employee);
                 Console.WriteLine();
 
             }
@@ -43,7 +43,7 @@ namespace Presentation
 
             Console.Read();
         }
-        public static void PrintEmployeesViewModelDTo(object obj)
+        public static void PrintGenericProps(object obj)
         {
             if (obj == null) return;
 

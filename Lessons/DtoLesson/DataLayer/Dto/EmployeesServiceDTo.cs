@@ -10,7 +10,7 @@ namespace DataLayer.Dto
 
         public decimal? Salary { get; set; }
         public string? Company { get; set; }
-        public bool? IsLocked { get; set; }
+        public bool IsLocked { get; set; }
         public int? JobContractId { get; set; }
         public string? Name { get; set; }
         public int? Id { get; set; }
@@ -24,7 +24,5 @@ namespace DataLayer.Dto
             Company = Employee?.JobContract?.Jobs?.CompanyName ?? string.Empty;
 
         }
-
     }
-
 }
