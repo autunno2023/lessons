@@ -1,17 +1,39 @@
 ﻿using DataLayer.DbContext;
 using DataLayer.Dto;
+using DataLayer.Models;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DataLayer.Repository
 {
-    internal interface IHRRepository
-    {
-        public EmployeesServiceDTo GetEmployee(int Id);
-        public List<EmployeesServiceDTo> GetAllEmployee();
 
+
+    public class HRRepository<T, Rq, Rs> : IRepository<T> where T : HR, new()
+    {
+        private readonly GenericDbContext<T, Rs> Db;
+
+        public HRRepository(string path)
+        {
+            Db = new GenericDbContext<T, Rs>();
+        }
+        public void UpdateEmployees(List<T> employees)
+        {
+            Db.WriteData<T>(employees);
+        }
+        public List<Rs> GetAllEmployees()
+        {
+            return Db.Data;
+        }
+        public Rs GetByName(Rs rs)
+        {
+            return null;
+        }
+
+        List<T> IRepository<T>.GetAllEmployees()
+        {
+            throw new System.NotImplementedException();
+        }
     }
-    public class HRRepository
+    public class SocialMediaRepository : IHRRepository
     {
         private readonly HumanResouresDbContext Db;
 
@@ -19,13 +41,25 @@ namespace DataLayer.Repository
         {
             Db = new HumanResouresDbContext(path);
         }
-        public EmployeesServiceDTo? GetEmployee(int Id)
+        public void UpdateEmployees(List<Employee> employees)
         {
-            return Db.GetEmployees.FirstOrDefault(i => i.Id == Id);
+            Db.WriteData<Employee>(employees);
         }
-        public List<EmployeesServiceDTo> GetAllEmployees()
+        public List<HRServiceDToRes> GetAllEmployees()
         {
             return Db.GetEmployees;
         }
     }
+}
+
+internal interface IRepository<T>
+{
+
+    /*****  DB ***** */
+    //public T Get(int Id);
+    //public T Update();
+    //public T GetAll();
+    //public T Delete(int Id);
+    public List<T> GetAllEmployees();
+    public void UpdateEmployees(List<T> employees);
 }

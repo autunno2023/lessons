@@ -4,9 +4,8 @@ namespace DataLayer.Dto
 {
 
 
-    public class EmployeesServiceDTo : IEmployeesDTo
+    public class HRServiceDToRes : IEmployeesDTo
     {
-        public EmployeesViewModelDTo ViewModel { get; set; }
 
         public decimal? Salary { get; set; }
         public string? Company { get; set; }
@@ -14,7 +13,7 @@ namespace DataLayer.Dto
         public int? JobContractId { get; set; }
         public string? Name { get; set; }
         public int? Id { get; set; }
-        internal EmployeesServiceDTo(Employee? Employee)
+        internal HRServiceDToRes(Employee? Employee)
         {
             Id = Employee?.Id;
             IsLocked = false;
@@ -25,4 +24,12 @@ namespace DataLayer.Dto
 
         }
     }
+    public class HRServiceDToReq
+    {
+        public decimal? Salary { get; set; }
+        public string? Country { get; set; }
+        public int? Age { get; set; }
+
+    }
+
 }

@@ -13,7 +13,7 @@ namespace Presentation
         public class SensitiveAttribute : Attribute { }
         static void Main(string[] args)
         {
-            EmployementService employementService = EmployementService.GetInstance();
+            HRService employementService = HRService.GetInstance();
 
 
             #region Employed
@@ -22,7 +22,18 @@ namespace Presentation
             foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
             {
 
-                PrintGenericProps(employee);
+                if (string.IsNullOrEmpty(employee.Error))
+                {
+                    Console.WriteLine(employee.Name);
+
+                }
+                else
+                {
+                    //  Console.WriteLine(employee.Name);
+                    Console.WriteLine($"this Employee {employee.Name} is locked!");
+
+                }
+                // PrintGenericProps(employee);
                 Console.WriteLine();
             }
             #endregion
@@ -41,10 +52,11 @@ namespace Presentation
             #endregion
 
 
-            #region EmployedByID
-            //EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(1);
-            //PrintEmployeesViewModelDTo(viewModelDTo);
-            //Console.WriteLine($"Nome: {viewModelDTo?.Name ?? "<None>"}");
+            #region EmployedByID  
+            HRServiceDToReq hRServiceDToReq = new HRServiceDToReq() { Age = 40, Country = "Italia", Salary = 20000M }
+            EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(hRServiceDToReq);
+            PrintGenericProps(viewModelDTo);
+            Console.WriteLine($"Nome: {viewModelDTo?.Name ?? "<None>"}");
             #endregion
 
 

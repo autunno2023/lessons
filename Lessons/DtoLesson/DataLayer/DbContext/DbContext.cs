@@ -27,7 +27,7 @@ namespace DataLayer.DbContext
      */
     #endregion
 
-    public abstract class DbContext
+    internal abstract class DbContext
     {
         public string _config; // Solitamente la configurazione per accedere al DstaSrc
         protected DbContext(string config)
