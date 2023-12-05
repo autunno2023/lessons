@@ -8,9 +8,6 @@ namespace Presentation
 {
     internal class Program
     {
-        [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
-
-        public class SensitiveAttribute : Attribute { }
         static void Main(string[] args)
         {
             EmployementService employementService = EmployementService.GetInstance();
@@ -21,12 +18,13 @@ namespace Presentation
 
             foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
             {
+                //Console.WriteLine(employee.Name);
+                //Console.WriteLine(employee.Id);
 
                 PrintGenericProps(employee);
                 Console.WriteLine();
             }
             #endregion
-
             #region Unemployed
             //Console.ForegroundColor = ConsoleColor.Red;
             //Console.WriteLine("\n--------------- Unemployed ---------------------\n");
@@ -39,8 +37,6 @@ namespace Presentation
 
             //}
             #endregion
-
-
             #region EmployedByID
             //EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(1);
             //PrintEmployeesViewModelDTo(viewModelDTo);
@@ -50,7 +46,7 @@ namespace Presentation
 
             Console.Read();
         }
-        public static void PrintGenericProps(object obj)
+        public static void PrintGenericProps(EmployeesViewModelDTo obj)
         {
             if (obj == null) return;
 

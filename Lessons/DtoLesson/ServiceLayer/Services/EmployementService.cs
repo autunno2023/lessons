@@ -16,7 +16,6 @@ namespace ServiceLayer.Services
         {
             DbContext = new HumanResouresDbContext(@"D:\logs\");
         }
-
         public static EmployementService GetInstance()
         {
             if (instance is null)
@@ -27,8 +26,8 @@ namespace ServiceLayer.Services
         }
         public List<EmployeesViewModelDTo> GetAllEmployees()
         {
-            // return DbContext.employeesServiceDTos.Select(i => new EmployeesViewModelDTo(i)).ToList();
-            return DbContext.GetEmployees.Select(i => i).Cast<EmployeesViewModelDTo>().ToList();
+            return DbContext.GetEmployees.Select(i => new EmployeesViewModelDTo(i)).ToList();
+            /// return DbContext.GetEmployees.Select(i => i).Cast<EmployeesViewModelDTo>().ToList();
         }
         public List<EmployeesViewModelDTo> GetAllUnemployed()
         {
