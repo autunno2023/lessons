@@ -16,7 +16,7 @@ namespace Presentation
             EmployementService employementService = EmployementService.GetInstance();
 
 
-
+            #region Employed
             Console.WriteLine("\n--------------- Employed ---------------------\n");
 
             foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
@@ -25,21 +25,28 @@ namespace Presentation
                 PrintGenericProps(employee);
                 Console.WriteLine();
             }
+            #endregion
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\n--------------- Unemployed ---------------------\n");
-            Console.ResetColor();
-            foreach (EmployeesViewModelDTo employee in employementService.GetAllUnemployed())
-            {
+            #region Unemployed
+            //Console.ForegroundColor = ConsoleColor.Red;
+            //Console.WriteLine("\n--------------- Unemployed ---------------------\n");
+            //Console.ResetColor();
+            //foreach (EmployeesViewModelDTo employee in employementService.GetAllUnemployed())
+            //{
 
-                PrintGenericProps(employee);
-                Console.WriteLine();
+            //    PrintGenericProps(employee);
+            //    Console.WriteLine();
 
-            }
+            //}
+            #endregion
 
+
+            #region EmployedByID
             //EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(1);
             //PrintEmployeesViewModelDTo(viewModelDTo);
             //Console.WriteLine($"Nome: {viewModelDTo?.Name ?? "<None>"}");
+            #endregion
+
 
             Console.Read();
         }

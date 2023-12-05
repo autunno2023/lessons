@@ -12,7 +12,7 @@ namespace DataLayer.DbContext
     {
         List<Employee> Employees { get; set; }
 
-        public List<EmployeesServiceDTo> employeesServiceDTos
+        public List<EmployeesServiceDTo> GetEmployees
         {
             get
             {

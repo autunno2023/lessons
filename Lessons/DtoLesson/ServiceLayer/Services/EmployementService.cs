@@ -27,29 +27,32 @@ namespace ServiceLayer.Services
         }
         public List<EmployeesViewModelDTo> GetAllEmployees()
         {
-
-            return DbContext.employeesServiceDTos.Select(i => new EmployeesViewModelDTo(i)).ToList();
+            // return DbContext.employeesServiceDTos.Select(i => new EmployeesViewModelDTo(i)).ToList();
+            return DbContext.GetEmployees.Select(i => i).Cast<EmployeesViewModelDTo>().ToList();
         }
         public List<EmployeesViewModelDTo> GetAllUnemployed()
         {
-            return DbContext.employeesServiceDTos
-                .Where(i => i.Salary == 0).Select(i => new EmployeesViewModelDTo(i)).ToList();
+            //return DbContext.GetEmployees
+            //    .Where(i => i.Salary == 0).Select(i => new EmployeesViewModelDTo(i)).ToList(); 
+            return null;
 
         }
         public EmployeesViewModelDTo GetEmployee(int Id)
         {
-            return new EmployeesViewModelDTo(DbContext.employeesServiceDTos
-             .FirstOrDefault(i => i.Id == Id));
+            //return new EmployeesViewModelDTo(DbContext.employeesServiceDTos
+            // .FirstOrDefault(i => i.Id == Id)); 
+            return null;
         }
         public EmployeesViewModelDTo GetEmployeeAndContracts(int Id)
         {
 
-            EmployeesServiceDTo employeesServiceDTo = DbContext.employeesServiceDTos.Where(i => i.Id == Id).FirstOrDefault();
+            //EmployeesServiceDTo employeesServiceDTo = DbContext.employeesServiceDTos.Where(i => i.Id == Id).FirstOrDefault();
 
-            if (CheckAccount(employeesServiceDTo))
-                return new EmployeesViewModelDTo(employeesServiceDTo);
-            else
-                return null;
+            //if (CheckAccount(employeesServiceDTo))
+            //    return new EmployeesViewModelDTo(employeesServiceDTo);
+            //else
+            //    return null; 
+            return null;
         }
         public static List<Jobs> GetAllJobs()
         {

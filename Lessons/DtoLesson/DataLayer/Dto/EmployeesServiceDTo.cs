@@ -4,7 +4,7 @@ namespace DataLayer.Dto
 {
 
 
-    public class EmployeesServiceDTo : IEmployeesDTo
+    public class EmployeesServiceDTo : EmployeesViewModelDTo
     {
         public EmployeesViewModelDTo ViewModel { get; set; }
 
@@ -14,7 +14,7 @@ namespace DataLayer.Dto
         public int? JobContractId { get; set; }
         public string? Name { get; set; }
         public int? Id { get; set; }
-        internal EmployeesServiceDTo(Employee? Employee)
+        internal EmployeesServiceDTo(Employee? Employee) : base(Employee)
         {
             Id = Employee?.Id;
             IsLocked = false;
