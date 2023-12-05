@@ -1,6 +1,5 @@
-﻿using DataLayer.DbContext;
-using DataLayer.Dto;
-using DataLayer.Models;
+﻿using DataLayer.Dto;
+using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,11 @@ namespace ServiceLayer.Services
     public class EmployementService
     {
 
-        static HumanResouresDbContext DbContext;
+        static HRRepository _HRrepository;
         static EmployementService instance;
         EmployementService()
         {
-            DbContext = new HumanResouresDbContext(@"D:\logs\");
+            _HRrepository = new HRRepository(@"D:\logs\");
         }
 
         public static EmployementService GetInstance()
@@ -27,12 +26,11 @@ namespace ServiceLayer.Services
         }
         public List<EmployeesViewModelDTo> GetAllEmployees()
         {
-            // return DbContext.employeesServiceDTos.Select(i => new EmployeesViewModelDTo(i)).ToList();
-            return DbContext.GetEmployees.Select(i => i).Cast<EmployeesViewModelDTo>().ToList();
+            return _HRrepository.GetAllEmployees().Select(i => new EmployeesViewModelDTo(i)).ToList();
         }
         public List<EmployeesViewModelDTo> GetAllUnemployed()
         {
-            //return DbContext.GetEmployees
+            //return DbContext.GetAllEmployees
             //    .Where(i => i.Salary == 0).Select(i => new EmployeesViewModelDTo(i)).ToList(); 
             return null;
 
@@ -54,14 +52,8 @@ namespace ServiceLayer.Services
             //    return null; 
             return null;
         }
-        public static List<Jobs> GetAllJobs()
-        {
-            return DbContext.Jobs.ToList();
-        }
-        public Jobs GetJob(string Title)
-        {
-            return GetAllJobs().Where(i => i.Title == Title).FirstOrDefault();
-        }
+
+
         private static bool CheckAccount(EmployeesServiceDTo employees)
         {
             if (employees.IsLocked)

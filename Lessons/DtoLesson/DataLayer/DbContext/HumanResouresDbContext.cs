@@ -10,7 +10,7 @@ namespace DataLayer.DbContext
     // ORM
     public class HumanResouresDbContext : DbContext
     {
-        List<Employee> Employees { get; set; }
+        public List<Employee> Employees { get; set; }
 
         public List<EmployeesServiceDTo> GetEmployees
         {

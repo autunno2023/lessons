@@ -29,7 +29,7 @@ namespace DataLayer.DbContext
 
     public abstract class DbContext
     {
-        string _config; // Solitamente la configurazione per accedere al DstaSrc
+        public string _config; // Solitamente la configurazione per accedere al DstaSrc
         protected DbContext(string config)
         {
             _config = config;
@@ -41,7 +41,7 @@ namespace DataLayer.DbContext
 
 
         #region Services 
-        protected List<T> ReadFromDb<T>(string config) where T : class, new()
+        public virtual List<T> ReadFromDb<T>(string config) where T : class, new()
         {
             List<string> lines = File.ReadAllLines(config).ToList();
             return CreateObject<T>(lines);
