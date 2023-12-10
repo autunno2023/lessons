@@ -1,6 +1,6 @@
-﻿namespace DataLayer.Models
+﻿namespace DataLayer.Models.HR
 {
-    public class Company
+    public class Company : HR
     {
         public string Name { get; set; }
         public string Email { get; set; }

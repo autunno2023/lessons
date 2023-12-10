@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataLayer.Models
+namespace DataLayer.Models.SocialMedia
 {
     internal class Post
     {

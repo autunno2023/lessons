@@ -1,6 +1,6 @@
 ﻿namespace ServiceLayer.Services
 {
-    internal interface IService<T, DtoRes>
+    internal interface IService<TEntity, DtoReq, DtoRes>
     {
         public DtoRes Get(int Id);
         public DtoRes Update();

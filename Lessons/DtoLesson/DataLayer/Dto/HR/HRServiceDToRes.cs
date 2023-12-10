@@ -1,6 +1,6 @@
-﻿using DataLayer.Models;
+﻿using DataLayer.Models.HR;
 
-namespace DataLayer.Dto
+namespace DataLayer.Dto.HR
 {
 
 
@@ -13,7 +13,7 @@ namespace DataLayer.Dto
         public int? JobContractId { get; set; }
         public string? Name { get; set; }
         public int? Id { get; set; }
-        internal HRServiceDToRes(Employee? Employee)
+        public HRServiceDToRes(Employee? Employee)
         {
             Id = Employee?.Id;
             IsLocked = false;
@@ -23,13 +23,12 @@ namespace DataLayer.Dto
             Company = Employee?.JobContract?.Jobs?.CompanyName ?? string.Empty;// In caso di null, restituisce il valore di default del tipo  
 
         }
-    }
-    public class HRServiceDToReq
-    {
-        public decimal? Salary { get; set; }
-        public string? Country { get; set; }
-        public int? Age { get; set; }
+        public HRServiceDToRes()
+        {
+
+        }
 
     }
+
 
 }

@@ -1,5 +1,5 @@
-﻿using DataLayer.Dto;
-using ServiceLayer.Services;
+﻿using DataLayer.Dto.HR;
+using ServiceLayer.Services.HR;
 using System;
 using System.Reflection;
 using System.Text;
@@ -13,29 +13,28 @@ namespace Presentation
         public class SensitiveAttribute : Attribute { }
         static void Main(string[] args)
         {
-            HRService employementService = HRService.GetInstance();
+            Service employementService = new Service();
 
 
             #region Employed
-            Console.WriteLine("\n--------------- Employed ---------------------\n");
+            //Console.WriteLine("\n--------------- Employed ---------------------\n");
 
-            foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
-            {
+            //foreach (EmployeesViewModelDTo employee in employementService.GetAllEmployees())
+            //{
 
-                if (string.IsNullOrEmpty(employee.Error))
-                {
-                    Console.WriteLine(employee.Name);
+            //    if (employee is not null)
+            //    {
+            //        PrintGenericProps(employee);
+            //    }
+            //    else
+            //    {
+            //        //  Console.WriteLine(employee.Name);
+            //        Console.WriteLine($"this Employee {employee.Name} is locked!");
 
-                }
-                else
-                {
-                    //  Console.WriteLine(employee.Name);
-                    Console.WriteLine($"this Employee {employee.Name} is locked!");
-
-                }
-                // PrintGenericProps(employee);
-                Console.WriteLine();
-            }
+            //    }
+            //    // PrintGenericProps(employee);
+            //    Console.WriteLine();
+            //}
             #endregion
 
             #region Unemployed
@@ -52,11 +51,40 @@ namespace Presentation
             #endregion
 
 
-            #region EmployedByID  
-            HRServiceDToReq hRServiceDToReq = new HRServiceDToReq() { Age = 40, Country = "Italia", Salary = 20000M }
-            EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(hRServiceDToReq);
-            PrintGenericProps(viewModelDTo);
-            Console.WriteLine($"Nome: {viewModelDTo?.Name ?? "<None>"}");
+            #region EmployedByID   
+            Console.WriteLine("\n--------------- Unemployed BY QUERY ---------------------\n");
+            EmployeesViewModelDToReq hRDToReq = new EmployeesViewModelDToReq()
+            {
+                Age = 18,
+                Email = "bruno@gmail",
+                CodiceFiscale = "FRRBRN82A14Z602H"
+            };
+            try
+            {
+                EmployeesViewModelDTo viewModelDTo = employementService.GetEmployee(hRDToReq);
+
+                if (viewModelDTo?.Errors?.Count > 0)
+                {
+                    foreach (var error in viewModelDTo.Errors)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(error);
+                        Console.ResetColor();
+                    }
+                }
+                else
+                {
+                    PrintGenericProps(viewModelDTo);
+                }
+            }
+            catch (System.ComponentModel.DataAnnotations.ValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+
+
+            // Console.WriteLine($"Nome: {viewModelDTo?.Name ?? "<None>"}");
             #endregion
 
 
@@ -72,7 +100,6 @@ namespace Presentation
 
             foreach (var prop in properties)
             {
-
                 object propValue = prop.GetValue(obj, null);
                 sb.AppendLine($"{prop.Name}: {propValue}");
             }

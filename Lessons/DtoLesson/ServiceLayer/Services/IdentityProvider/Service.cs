@@ -1,10 +1,9 @@
-﻿using DataLayer.Dto;
+﻿using DataLayer.Dto.HR;
 
-namespace ServiceLayer.Services
+namespace ServiceLayer.Services.IdentityProvider
 {
-    internal class IdentityProvider
+    internal class Service
     {
-
         public static bool IsRegistered(HRServiceDToRes employeesServiceDTo)
         {
             return employeesServiceDTo.IsLocked;

@@ -1,4 +1,4 @@
-﻿namespace DataLayer.Models
+﻿namespace DataLayer.Models.HR
 {
     public class Jobs : HR
     {

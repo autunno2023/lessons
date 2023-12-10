@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.Services
+namespace DataLayer.Models.SocialMedia
 {
-    internal class FinanceService
+    internal class Comment
     {
     }
 }

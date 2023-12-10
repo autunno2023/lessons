@@ -1,7 +1,7 @@
-﻿using DataLayer.Models;
+﻿using DataLayer.Models.SocialMedia;
 using System.Collections.Generic;
 
-namespace DataLayer.Dto
+namespace DataLayer.Dto.SocialMedia
 {
     internal class SocialMediaDtoFree
     {
@@ -14,7 +14,6 @@ namespace DataLayer.Dto
         {
             User = user.UserId;
             Posts = user.Posts.Count;
-
         }
     }
     internal class SocialMediaDtoPay
