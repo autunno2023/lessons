@@ -87,23 +87,12 @@ namespace DataLayer.DbContext
                         {
                             Type targetType = Nullable.GetUnderlyingType(e.PropertyType) ?? e.PropertyType;
 
-                            //var t = Convert.ChangeType(col, entry.GetType().GetProperty(headers[j].Trim()).PropertyType);
-                            //e.SetValue(entry, t);
-
-
-                            // Custom conversion for nullable types  
                             var isNull = columns[j] == null ? true : false;
                             var isEmpty = string.IsNullOrEmpty(columns[j]) ? true : false;
                             var data = columns[j];
 
-                            object convertedValue = (columns[j] == null || columns[j].Trim().Equals(string.Empty)) ? null : Convert.ChangeType(columns[j], targetType);
+                            object? convertedValue = (columns[j] == null || columns[j].Trim().Equals(string.Empty)) ? null : Convert.ChangeType(columns[j], targetType);
                             e.SetValue(entry, convertedValue);
-
-
-
-
-
-
                         }
                         j++;
                     }
@@ -140,10 +129,8 @@ namespace DataLayer.DbContext
                 sb = new StringBuilder();
                 foreach (var col in cols)// cicla tutte le Entity della classe in oggetto
                 {
-
                     sb.Append(col.GetValue(row));
                     sb.Append(',');
-
 
                 }
                 list.Add(sb.ToString().Substring(0, sb.Length - 1));

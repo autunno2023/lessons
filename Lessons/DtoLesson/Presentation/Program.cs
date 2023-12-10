@@ -55,9 +55,9 @@ namespace Presentation
             Console.WriteLine("\n--------------- Unemployed BY QUERY ---------------------\n");
             EmployeesViewModelDToReq hRDToReq = new EmployeesViewModelDToReq()
             {
-                Age = 18,
+                Age = 10,
                 Email = "bruno@gmail",
-                CodiceFiscale = "FRRBRN82A14Z602H"
+                // CodiceFiscale = "FRRBRN82A14Z602H"
             };
             try
             {

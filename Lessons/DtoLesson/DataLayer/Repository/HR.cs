@@ -18,7 +18,7 @@ namespace DataLayer.Repository
         }
         public void UpdateEmployees(List<T> employees)
         {
-            Db.WriteData<T>(employees); 
+            Db.WriteData<T>(employees);
         }
         public List<Rs> GetAllEmployees()
         {
@@ -33,7 +33,8 @@ namespace DataLayer.Repository
             }
 
             var rqId = rqIdProperty.GetValue(rq);
-            return Db.Data.FirstOrDefault(i => Equals(i.GetType().GetProperty("Email")?.GetValue(i), rqId));
+            var result = Db.Data.FirstOrDefault(i => Equals(i.GetType().GetProperty("Email")?.GetValue(i), rqId));
+            return result;
         }
     }
 

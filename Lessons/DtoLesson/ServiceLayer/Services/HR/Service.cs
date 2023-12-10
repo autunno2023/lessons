@@ -33,13 +33,13 @@ namespace ServiceLayer.Services.HR
         {
             try
             {
-                //  var results = validator.Validate(hRServiceDToReq);
+                var results = validator.Validate(hRServiceDToReq);
 
-                var results = Modelvalidator.ValidateModel(hRServiceDToReq);
+                // var results = Modelvalidator.ValidateModel(hRServiceDToReq);
 
                 if (Modelvalidator.ValidateModel(hRServiceDToReq).Count > 0)
                 {
-                    return new EmployeesViewModelDTo() { Errors = results.Select(i => i.ErrorMessage).ToList() };
+                    return new EmployeesViewModelDTo() { Errors = results.Errors.Select(i => i.ErrorMessage).ToList() };
                 }
                 else
                 {

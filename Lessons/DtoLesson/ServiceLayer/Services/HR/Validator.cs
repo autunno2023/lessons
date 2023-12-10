@@ -42,6 +42,32 @@ namespace ServiceLayer.Services.HR
                 return false;
 
             var regex = new Regex(@"^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$");
+            #region regex 
+            /*     
+                ^: Indica l'inizio di una linea o stringa.
+
+                [A-Z]{6}: Corrisponde esattamente a 6 caratteri, ciascuno dei quali deve essere una lettera maiuscola da A a Z.
+
+                \d{2}: Corrisponde esattamente a 2 cifre (da 0 a 9).
+
+                [A-Z]: Corrisponde esattamente a una lettera maiuscola da A a Z.
+
+                \d{2}: Di nuovo, corrisponde esattamente a 2 cifre.
+
+                [A-Z]: Corrisponde esattamente a una lettera maiuscola da A a Z.
+
+                \d{3}: Corrisponde esattamente a 3 cifre.
+
+                [A-Z]: Corrisponde esattamente a una lettera maiuscola da A a Z.
+
+                $: Indica la fine di una linea o stringa.
+
+                Quindi, questa espressione regolare è progettata per riconoscere stringhe che seguono uno schema molto specifico: sei lettere maiuscole, seguite da due cifre, una lettera maiuscola, altre due cifre, un'altra lettera maiuscola, tre cifre, e infine una lettera maiuscola.
+
+                Questo schema è tipico per sistemi di codifica o identificatori che hanno una struttura fissa, come alcuni tipi di ID governativi o istituzionali. L'uso preciso di questa regex dipenderebbe dal contesto in cui viene applicata.
+             */
+            #endregion
+
             return regex.IsMatch(codiceFiscale);
         }
         #endregion
