@@ -19,11 +19,21 @@ namespace PowerfulConsole
             #region AddSingleton
             // registra l'oggetto IConfiguration nel container DI come singleton.
             // Questo significa che una singola istanza di IConfiguration verrà condivisa
-            // in tutta l'applicazione.
+            // in tutta l'applicazione. 
             serviceProvider.AddSingleton<IConfiguration>(configuration);
+
             #endregion
             serviceProvider.AddSingleton<IConfiguration>(configuration);
+
+            #region AddTransient
+            //La scelta di AddTransient implica una nuova istanza ad ogni richiesta.
+            //Assicurati che questo comportamento sia adatto per il tuo EmailSender. 
+            //Se, per esempio, EmailSender mantenesse stato o risorse (come una connessione di rete),
+            //potresti voler considerare AddSingleton  
             serviceProvider.AddTransient<IMyService, MyService>();
+
+            #endregion
+
             var provider = serviceProvider.BuildServiceProvider();
 
             // Ottieni il servizio e usalo
