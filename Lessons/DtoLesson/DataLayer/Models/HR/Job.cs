@@ -1,6 +1,6 @@
 ﻿namespace DataLayer.Models.HR
 {
-    public class Jobs : HR
+    public class Job : HR
     {
         public int Id { get; set; }
 

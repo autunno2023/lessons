@@ -41,9 +41,9 @@ namespace DataLayer.DbContext
 
 
         #region Services 
-        public virtual List<T> ReadFromDb<T>(string config) where T : class, new()
+        public virtual List<T> ReadFromDb<T>(string Path) where T : class, new()
         {
-            List<string> lines = File.ReadAllLines(config).ToList();
+            List<string> lines = File.ReadAllLines(Path).ToList();
             return CreateObject<T>(lines);
         }
         public static List<T> CreateObject<T>(List<string> lines) where T : class, new()

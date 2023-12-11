@@ -7,7 +7,7 @@
         public int JobId { get; set; }
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
-        public Jobs Jobs { get; set; }
+        public Job Jobs { get; set; }
 
     }
 
