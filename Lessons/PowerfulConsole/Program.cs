@@ -15,15 +15,21 @@ namespace PowerfulConsole
                   .Build();
 
             // Configura il service provider
-            var serviceProvider = new ServiceCollection()
-                .AddSingleton<IConfiguration>(configuration)
-                .AddTransient<IMyService, MyService>()
-                .BuildServiceProvider();
+            var serviceProvider = new ServiceCollection();
+            #region AddSingleton
+            // registra l'oggetto IConfiguration nel container DI come singleton.
+            // Questo significa che una singola istanza di IConfiguration verrà condivisa
+            // in tutta l'applicazione.
+            serviceProvider.AddSingleton<IConfiguration>(configuration);
+            #endregion
+            serviceProvider.AddSingleton<IConfiguration>(configuration);
+            serviceProvider.AddTransient<IMyService, MyService>();
+            var provider = serviceProvider.BuildServiceProvider();
 
             // Ottieni il servizio e usalo
-            var service1 = serviceProvider.GetService<IMyService>();
+            var service1 = provider.GetService<IMyService>();
             service1.DoSomething();
-            var service2 = serviceProvider.GetService<IMyService>();
+            var service2 = provider.GetService<IMyService>();
             service2.DoSomething();
         }
     }
