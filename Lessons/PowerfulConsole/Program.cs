@@ -50,8 +50,11 @@ namespace PowerfulConsole
             #endregion
 
             // 4 - Esempio di utilizzo del servizio (Simulazione)
-            var MyService = serviceProvider.GetService<MyService>();
-            MyService.DoSomething();
+            var MyService1 = serviceProvider.GetService<MyService>();
+            MyService1.DoSomething();
+
+            var MyService2 = serviceProvider.GetService<MyService>();
+            MyService2.DoSomething();
         }
     }
 
@@ -70,12 +73,15 @@ namespace PowerfulConsole
 
         public void DoSomething()
         {
+            Console.WriteLine();
 
+            Console.WriteLine($"Intanza N : {MyServiceSettings.counter}");
             Console.WriteLine($"Valore di configurazione: {_configuration.Server}");
             Console.WriteLine($"Valore di configurazione: {_configuration.Proxy}");
             Console.WriteLine($"Valore di configurazione: {_configuration.IpAddress}");
             Console.WriteLine($"Valore di configurazione: {_configuration.Backend}");
             Console.WriteLine($"Valore di configurazione: {_configuration.Fontend}");
+            Console.WriteLine();
         }
     }
 
