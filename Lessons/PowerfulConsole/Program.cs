@@ -17,12 +17,14 @@ namespace PowerfulConsole
             // Configura il service provider
             var serviceProvider = new ServiceCollection()
                 .AddSingleton<IConfiguration>(configuration)
-                .AddSingleton<IMyService, MyService>()
+                .AddTransient<IMyService, MyService>()
                 .BuildServiceProvider();
 
             // Ottieni il servizio e usalo
-            var service = serviceProvider.GetService<IMyService>();
-            service.DoSomething();
+            var service1 = serviceProvider.GetService<IMyService>();
+            service1.DoSomething();
+            var service2 = serviceProvider.GetService<IMyService>();
+            service2.DoSomething();
         }
     }
     public interface IMyService
@@ -33,14 +35,16 @@ namespace PowerfulConsole
     public class MyService : IMyService
     {
         private readonly IConfiguration _configuration;
-
+        static int counter = 0;
         public MyService(IConfiguration configuration)
         {
             _configuration = configuration;
+            counter++;
         }
 
         public void DoSomething()
         {
+            Console.WriteLine($"Istanza N: {counter}");
             var settingValue = _configuration["ConnectionStrings:DefaultConnection"];
             Console.WriteLine($"Valore di configurazione: {settingValue}");
         }
