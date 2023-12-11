@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 namespace DataLayer.Dto.HR
 {
     public class EmployeesViewModelDTo : IEmployeesDTo
@@ -22,13 +21,13 @@ namespace DataLayer.Dto.HR
     {
 
 
-        [Required]
-        [Range(18, 65)]
+        //[Required]
+        //[Range(18, 65)]
         public int? Age { get; set; }
 
 
-        [Required]
-        [EmailAddress]
+        //[Required]
+        //[EmailAddress]
         public string? Email { get; set; }
         public string? CodiceFiscale { get; set; }
         public EmployeesViewModelDToReq()
@@ -37,8 +36,5 @@ namespace DataLayer.Dto.HR
         }
 
     }
-
-
-
 
 }

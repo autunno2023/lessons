@@ -64,8 +64,8 @@ namespace DataLayer.Repository
             }
 
             var rqId = rqIdProperty.GetValue(rq);
-            var result = Db.Data.FirstOrDefault(i => Equals(i.GetType().GetProperty("Email")?.GetValue(i), rqId));
-            return result;
+            var result = Employees.FirstOrDefault(i => Equals(i.GetType().GetProperty("Email")?.GetValue(i), rqId));
+            return (TResponse?)Activator.CreateInstance(typeof(TResponse), result);
         }
     }
 

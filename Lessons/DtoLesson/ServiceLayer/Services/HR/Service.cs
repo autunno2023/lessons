@@ -30,23 +30,34 @@ namespace ServiceLayer.Services.HR
         }
         public EmployeesViewModelDTo GetEmployee(EmployeesViewModelDToReq hRServiceDToReq)
         {
+            #region Validation
+            //try
+            //{
+            //    //var results = validator.Validate(hRServiceDToReq);
+
+            //    var results = Modelvalidator.ValidateModel(hRServiceDToReq);
+
+            //    if (Modelvalidator.ValidateModel(hRServiceDToReq).Count > 0)
+            //    {
+            //        return new EmployeesViewModelDTo() { Errors = results.Select(i => i.ErrorMessage).ToList() };
+            //    }
+            //    else
+            //    {
+            //        return new EmployeesViewModelDTo(repository.Get(hRServiceDToReq));
+            //    }
+            //}
+            //catch
+            //{
+            //    throw;
+            //}   
+            #endregion
             try
             {
-                //var results = validator.Validate(hRServiceDToReq);
-
-                var results = Modelvalidator.ValidateModel(hRServiceDToReq);
-
-                if (Modelvalidator.ValidateModel(hRServiceDToReq).Count > 0)
-                {
-                    return new EmployeesViewModelDTo() { Errors = results.Select(i => i.ErrorMessage).ToList() };
-                }
-                else
-                {
-                    return new EmployeesViewModelDTo(repository.Get(hRServiceDToReq));
-                }
+                return new EmployeesViewModelDTo(repository.Get(hRServiceDToReq));
             }
-            catch
+            catch (System.Exception)
             {
+
                 throw;
             }
         }
