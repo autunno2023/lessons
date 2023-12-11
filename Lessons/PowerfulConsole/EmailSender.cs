@@ -1,14 +1,22 @@
-﻿using System.Net;
+﻿using Microsoft.Extensions.Configuration;
+using System.Net;
 using System.Net.Mail;
 
 namespace PowerfulConsole
 {
-    internal class Program
+    public class EmailSender
     {
-        static void Main(string[] args)
+        readonly IConfiguration _configuration;
+        public EmailSender(IConfiguration configuration)
         {
+            _configuration = configuration;
+        }
+
+        public void SendEmail(string toAddress, string subject, string body)
+        {
+
             var FromAddress = new MailAddress("trinity.casper@ethereal.email", "CORSONET 2023");
-            var ToAddress = new MailAddress("");
+            var ToAddress = new MailAddress(toAddress);
             const string fromPassword = "pjreAx4EygBMUPrnBN";
 
 
@@ -24,14 +32,12 @@ namespace PowerfulConsole
 
             using (var message = new MailMessage(FromAddress, ToAddress)
             {
-                Subject = "",
-                Body = ""
+                Subject = subject,
+                Body = body
             })
             {
                 smtp.Send(message);
             }
         }
     }
-
-
 }
