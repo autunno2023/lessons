@@ -14,27 +14,15 @@ namespace PowerfulConsole
                   .AddEnvironmentVariables()
                   .Build();
 
+            var reportType = configuration.GetSection("ReportType").Value; // "Html" or "Pdf"
 
-            Console.WriteLine(configuration.GetSection("ConnectionStrings:DefaultConnection:Connection"));
             // Configura il service provider
             var serviceProvider = new ServiceCollection();
-            #region AddSingleton
-            // registra l'oggetto IConfiguration nel container DI come singleton.
-            // Questo significa che una singola istanza di IConfiguration verrà condivisa
-            // in tutta l'applicazione. 
-            serviceProvider.AddSingleton<IConfiguration>(configuration);
-
-            #endregion
-            serviceProvider.AddSingleton<IConfiguration>(configuration);
-
-            #region AddTransient
-            //La scelta di AddTransient implica una nuova istanza ad ogni richiesta.
-            //Assicurati che questo comportamento sia adatto per il tuo EmailSender. 
-            //Se, per esempio, EmailSender mantenesse stato o risorse (come una connessione di rete),
-            //potresti voler considerare AddSingleton  
-            serviceProvider.AddTransient<IReportGenerator, HtmlReportGenerator>();
+            serviceProvider.AddSingleton<IConfiguration>(configuration); // Register IConfiguration
+            serviceProvider.AddTransient<IReportGeneratorFactory, ReportGeneratorFactory>();
+            serviceProvider.AddTransient<HtmlReportGenerator>();
+            serviceProvider.AddTransient<PdfReportGenerator>();
             serviceProvider.AddTransient<ConsumerService>();
-            #endregion
 
             var provider = serviceProvider.BuildServiceProvider();
 
@@ -45,7 +33,7 @@ namespace PowerfulConsole
             // Ottieni il Consumer del  il servizio e usalo
 
             var consumerService = provider.GetService<ConsumerService>();
-            consumerService.DoWork();
+            consumerService.DoWork(reportType);
         }
     }
 
@@ -85,17 +73,29 @@ namespace PowerfulConsole
     }
     public class ConsumerService
     {
-        private readonly IReportGenerator _generator;
+        //private readonly IReportGenerator _generator;
 
-        public ConsumerService(IReportGenerator generator)
+        //public ConsumerService(IReportGenerator generator)
+        //{
+        //    _generator = generator;
+        //}
+
+        //public void DoWork()
+        //{
+
+        //    _generator.GenerateReport();
+        //} 
+        private readonly IReportGeneratorFactory _factory;
+
+        public ConsumerService(IReportGeneratorFactory factory)
         {
-            _generator = generator;
+            _factory = factory;
         }
 
-        public void DoWork()
+        public void DoWork(string reportType)
         {
-
-            _generator.GenerateReport();
+            var generator = _factory.CreateGenerator(reportType);
+            generator.GenerateReport();
         }
     }
 
