@@ -32,15 +32,20 @@ namespace PowerfulConsole
             //Assicurati che questo comportamento sia adatto per il tuo EmailSender. 
             //Se, per esempio, EmailSender mantenesse stato o risorse (come una connessione di rete),
             //potresti voler considerare AddSingleton  
-            serviceProvider.AddTransient<IReportGenerator, PdfReportGenerator>();
-
+            serviceProvider.AddTransient<IReportGenerator, HtmlReportGenerator>();
+            serviceProvider.AddTransient<ConsumerService>();
             #endregion
 
             var provider = serviceProvider.BuildServiceProvider();
 
-            // Ottieni il servizio e usalo
+            // Ottieni il direttamente il servizio e usalo
             var service1 = provider.GetService<IReportGenerator>();
-            service1.GenerateReport();
+            // service1.GenerateReport();
+
+            // Ottieni il Consumer del  il servizio e usalo
+
+            var consumerService = provider.GetService<ConsumerService>();
+            consumerService.DoWork();
         }
     }
 
