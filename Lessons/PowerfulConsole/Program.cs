@@ -14,6 +14,8 @@ namespace PowerfulConsole
                   .AddEnvironmentVariables()
                   .Build();
 
+
+            Console.WriteLine(configuration.GetSection("ConnectionStrings:DefaultConnection:Connection"));
             // Configura il service provider
             var serviceProvider = new ServiceCollection();
             #region AddSingleton
@@ -30,39 +32,66 @@ namespace PowerfulConsole
             //Assicurati che questo comportamento sia adatto per il tuo EmailSender. 
             //Se, per esempio, EmailSender mantenesse stato o risorse (come una connessione di rete),
             //potresti voler considerare AddSingleton  
-            serviceProvider.AddTransient<IMyService, MyService>();
+            serviceProvider.AddTransient<IReportGenerator, PdfReportGenerator>();
 
             #endregion
 
             var provider = serviceProvider.BuildServiceProvider();
 
             // Ottieni il servizio e usalo
-            var service1 = provider.GetService<IMyService>();
-            service1.DoSomething();
-            var service2 = provider.GetService<IMyService>();
-            service2.DoSomething();
+            var service1 = provider.GetService<IReportGenerator>();
+            service1.GenerateReport();
         }
     }
-    public interface IMyService
-    {
-        void DoSomething();
-    }
 
-    public class MyService : IMyService
+    public interface IReportGenerator
+    {
+        public void GenerateReport();
+    }
+    public class HtmlReportGenerator : IReportGenerator
     {
         private readonly IConfiguration _configuration;
-        static int counter = 0;
-        public MyService(IConfiguration configuration)
+
+        public HtmlReportGenerator(IConfiguration configuration)
         {
             _configuration = configuration;
-            counter++;
-        }
 
-        public void DoSomething()
+        }
+        public void GenerateReport()
         {
-            Console.WriteLine($"Istanza N: {counter}");
-            var settingValue = _configuration["ConnectionStrings:DefaultConnection"];
-            Console.WriteLine($"Valore di configurazione: {settingValue}");
+            // Genera report in formato HTML
+            Console.WriteLine("<h1>Report</h1>"); ;
         }
     }
+    public class PdfReportGenerator : IReportGenerator
+    {
+        private readonly IConfiguration _configuration;
+
+        public PdfReportGenerator(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+        }
+        public void GenerateReport()
+        {
+            // Genera report in formato PDF
+            Console.WriteLine("%PDF-1.4 Report");
+        }
+    }
+    public class ConsumerService
+    {
+        private readonly IReportGenerator _generator;
+
+        public ConsumerService(IReportGenerator generator)
+        {
+            _generator = generator;
+        }
+
+        public void DoWork()
+        {
+
+            _generator.GenerateReport();
+        }
+    }
+
 }
