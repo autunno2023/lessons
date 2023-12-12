@@ -7,9 +7,9 @@ namespace PowerfulConsole
     {
         static void Main(string[] args)
         {
-            var FromAddress = new MailAddress("trinity.casper@ethereal.email", "CORSONET 2023");
-            var ToAddress = new MailAddress("");
-            const string fromPassword = "pjreAx4EygBMUPrnBN";
+            var FromAddress = new MailAddress("marquis.mueller@ethereal.email", "CORSONET 2023");
+            var ToAddress = new MailAddress("bruno_ferreira@hotmail.it");
+            const string fromPassword = "BT6WuFezhU9FUwPVNW";
 
 
             var smtp = new SmtpClient
@@ -24,8 +24,8 @@ namespace PowerfulConsole
 
             using (var message = new MailMessage(FromAddress, ToAddress)
             {
-                Subject = "",
-                Body = ""
+                Subject = "gffgfffg",
+                Body = "gfgfgfgffg"
             })
             {
                 smtp.Send(message);
