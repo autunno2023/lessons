@@ -1,4 +1,5 @@
 ﻿using DataLayer.Dto.HR;
+using Microsoft.Extensions.Configuration;
 using Presentation.Controllers;
 using System;
 
@@ -40,5 +41,54 @@ namespace Presentation
             Console.Read();
         }
 
+    }
+    public interface IReportGenerator
+    {
+        public void GenerateReport();
+    }
+    public class HtmlReportGenerator : IReportGenerator
+    {
+        private readonly IConfiguration _configuration;
+
+        public HtmlReportGenerator(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+        }
+        public void GenerateReport()
+        {
+            // Genera report in formato HTML
+            Console.WriteLine("<h1>Report</h1>"); ;
+        }
+    }
+    public class PdfReportGenerator : IReportGenerator
+    {
+        private readonly IConfiguration _configuration;
+
+        public PdfReportGenerator(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+        }
+        public void GenerateReport()
+        {
+            // Genera report in formato PDF
+            Console.WriteLine("%PDF-1.4 Report");
+        }
+    }
+    public class ConsumerService
+    {
+        private readonly IReportGenerator _generator;
+
+        public ConsumerService(IReportGenerator generator)
+        {
+            _generator = generator;
+        }
+
+        public void DoWork()
+        {
+
+            _generator.GenerateReport();
+        }
     }
 }
