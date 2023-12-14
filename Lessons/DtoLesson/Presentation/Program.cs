@@ -1,6 +1,7 @@
 ﻿using DataLayer.Dto.HR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.Controllers;
 using ServiceLayer.Services;
 using System;
 
@@ -20,24 +21,20 @@ namespace Presentation
             //OptionsConfigurationServiceCollectionExtensions
             // .Configure<AppSettings>(serviceProvider, configuration.GetSection("AppSettings"));
             serviceProvider.AddSingleton<IConfiguration>(configuration);
-            // serviceProvider.AddSingleton<AppSettings>();
-            // serviceProvider.AddTransient<GenericDbContext<TResponse>>();
+
             serviceProvider.AddServiceLayerServices<EmployeesViewModelDToReq, HRServiceDToRes>(configuration);
-            //serviceProvider.AddTransient<HRController>();
-            //serviceProvider.AddTransient<IReportGenerator, HtmlReportGenerator>();
-            //serviceProvider.AddTransient<ConsumerService>();
+            serviceProvider.AddTransient<HRController>();
 
-            //  var provider = serviceProvider.BuildServiceProvider();
-            //var consumerService = provider.GetService<GenericDbContext>();
-            //consumerService.DoWork();
-            //  consumerService.DoWork();
 
-            //EmployeesViewModelDTo? response = consumerService.GetEmployee(new EmployeesViewModelDToReq()
-            //{
-            //    Age = 10,
-            //    Email = "bruno@gmail",
-            //    //  CodiceFiscale = "FRRBRN82A14Z602H"
-            //});
+            var provider = serviceProvider.BuildServiceProvider();
+            var consumerService = provider.GetService<HRController>();
+
+            EmployeesViewModelDTo? response = consumerService.GetEmployee(new EmployeesViewModelDToReq()
+            {
+                Age = 18,
+                Email = "bruno@gmail",
+                CodiceFiscale = "FRRBRN82A14Z602H"
+            });
 
 
             Console.Read();

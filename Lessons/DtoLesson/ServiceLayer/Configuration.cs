@@ -11,7 +11,7 @@ namespace ServiceLayer.Services
              where K : class, new()
         {
             services.AddDataLayerServices<T, K>(configuration);
-            services.AddTransient<IHRService, HRService>();
+            services.AddTransient<HRService>();
 
             return services;
         }

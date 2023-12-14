@@ -1,5 +1,4 @@
 ﻿using DataLayer.Context;
-using DataLayer.Dto.HR;
 using DataLayer.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,10 +14,9 @@ namespace DataLayer
 
             // services.AddTransient<IDbContext, GenericDbContext<HRServiceDToRes>>(); 
             services.AddTransient<GenericDbContext<TResponse>>();
-
-            services.AddTransient<IRepository<EmployeesViewModelDToReq, HRServiceDToRes>, HRRepository<EmployeesViewModelDToReq, HRServiceDToRes>>();
-            var provider = services.BuildServiceProvider();
-            var consumerService = provider.GetService<GenericDbContext<TResponse>>();
+            services.AddTransient<IRepository<TRequest, TResponse>, HRRepository<TRequest, TResponse>>();
+            //var provider = services.BuildServiceProvider();
+            //var consumerService = provider.GetService<GenericDbContext<TResponse>>();
 
 
 

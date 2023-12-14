@@ -33,8 +33,8 @@ namespace DataLayer.Context
     //<TResponse> : IDbContext
     //<TResponse>
     {
-        public string _config; // Solitamente la configurazione per accedere al DstaSrc  
-        protected readonly string _configuration;
+        protected readonly string _connectionstring; // Solitamente la configurazione per accedere al DstaSrc  
+        //protected readonly string _configuration;
 
         //protected DbContext(string config)
         //{
@@ -43,14 +43,14 @@ namespace DataLayer.Context
 
         internal DbContext(IConfiguration configuration)
         {
-            _configuration = configuration["AppSettings:DataLayerSettings:DefaultConnection"];
+            _connectionstring = configuration["AppSettings:DataLayerSettings:DefaultConnection"];
         }
 
 
         #region Services 
         public virtual List<T> ReadFromDb<T>() where T : class, new()
         {
-            List<string> lines = File.ReadAllLines(_configuration + typeof(Employee).Name.ToString() + ".csv").ToList();
+            List<string> lines = File.ReadAllLines(_connectionstring + typeof(Employee).Name.ToString() + ".csv").ToList();
             return CreateObject<T>(lines);
         }
         public static List<T> CreateObject<T>(List<string> lines) where T : class, new()
@@ -119,9 +119,9 @@ namespace DataLayer.Context
             StringBuilder sb = new StringBuilder();
             var cols = data.GetEnumerator().GetType().GetProperties();
 
-            if (File.Exists(_config))
+            if (File.Exists(_connectionstring))
             {
-                File.Delete(_config);
+                File.Delete(_connectionstring);
             }
             foreach (var col in cols)// cicla tutte le Entity della classe in oggetto
             {
@@ -142,7 +142,7 @@ namespace DataLayer.Context
                 }
                 list.Add(sb.ToString().Substring(0, sb.Length - 1));
             }
-            File.AppendAllLines(_config, list);
+            File.AppendAllLines(_connectionstring, list);
         }
         #endregion
 

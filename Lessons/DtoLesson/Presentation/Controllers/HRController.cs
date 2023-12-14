@@ -10,9 +10,9 @@ namespace Presentation.Controllers
 
         readonly HRValidator validator;
         readonly IHRService employementService;
-        public HRController(HRService configuration)
+        public HRController(HRService hRService)
         {
-            //  employementService = hRService;
+            employementService = hRService;
             Modelvalidator = new ModelValidator();
             validator = new HRValidator();
         }
