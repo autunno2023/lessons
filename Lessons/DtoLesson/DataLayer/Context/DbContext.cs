@@ -1,11 +1,13 @@
-﻿using System;
+﻿using DataLayer.Models.HR;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace DataLayer.DbContext
+namespace DataLayer.Context
 {
 
 
@@ -27,23 +29,26 @@ namespace DataLayer.DbContext
      */
     #endregion
 
-    internal abstract class DbContext
+    public class DbContext : IDbContext
     {
-        public string _config; // Solitamente la configurazione per accedere al DstaSrc
-        protected DbContext(string config)
-        {
-            _config = config;
-        }
-        public DbContext()
-        {
+        public string _config; // Solitamente la configurazione per accedere al DstaSrc  
+        protected readonly string _configuration;
 
+        //protected DbContext(string config)
+        //{
+        //    _config = config;
+        //} 
+
+        internal DbContext(IConfiguration configuration)
+        {
+            _configuration = configuration["AppSettings:DataLayerSettings:DefaultConnection"];
         }
 
 
         #region Services 
-        public virtual List<T> ReadFromDb<T>(string Path) where T : class, new()
+        public virtual List<T> ReadFromDb<T>() where T : class, new()
         {
-            List<string> lines = File.ReadAllLines(Path).ToList();
+            List<string> lines = File.ReadAllLines(_configuration + typeof(Employee).Name.ToString() + ".csv").ToList();
             return CreateObject<T>(lines);
         }
         public static List<T> CreateObject<T>(List<string> lines) where T : class, new()

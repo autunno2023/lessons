@@ -1,19 +1,20 @@
 ﻿using DataLayer.Dto.HR;
-using DataLayer.Repository;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ServiceLayer.Services.HR
 {
-    public class Service
+    public class HRService : IHRService
     {
+        private readonly IConfiguration _configuration;
 
-        readonly HRRepository<HRServiceDToRes, EmployeesViewModelDToReq> repository;
+        readonly IRepository<HRServiceDToRes, EmployeesViewModelDToReq> repository;
         ModelValidator Modelvalidator;
         HRValidator validator;
-        public Service()
+        public HRService(IRepository<HRServiceDToRes, EmployeesViewModelDToReq> Repository)
         {
-            repository = new HRRepository<HRServiceDToRes, EmployeesViewModelDToReq>(@"D:\logs\");
+            repository = Repository;
             Modelvalidator = new ModelValidator();
             validator = new HRValidator();
         }

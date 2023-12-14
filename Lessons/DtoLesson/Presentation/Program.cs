@@ -1,41 +1,44 @@
 ﻿using DataLayer.Dto.HR;
+using DataLayer.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Presentation.Controllers;
+using ServiceLayer.Services;
+using ServiceLayer.Services.HR;
 using System;
 
 namespace Presentation
 {
     internal class Program
     {
-        static HRController controllers;
+
 
         static void Main(string[] args)
         {
-            controllers = new HRController();
+            IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
+            // Configura il service provider
+            var serviceProvider = new ServiceCollection();
+            serviceProvider.AddSingleton<AppSettings>();
 
-            EmployeesViewModelDTo? response = controllers.GetEmployee(
-           new EmployeesViewModelDToReq()
-           {
-               Age = 10,
-               Email = "bruno@gmail",
-               //  CodiceFiscale = "FRRBRN82A14Z602H"
-           });
+            //OptionsConfigurationServiceCollectionExtensions
+            // .Configure<AppSettings>(serviceProvider, configuration.GetSection("AppSettings"));
 
-            if (response?.Errors?.Count > 0)
-            {
-                foreach (var error in response.Errors)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(error);
-                    Console.ResetColor();
-                }
-            }
-            else
-            {
-                Utility.PrintGenericProps(response);
+            serviceProvider.AddServiceLayerServices<HRServiceDToRes, EmployeesViewModelDToReq>(configuration);
+            serviceProvider.AddTransient<IHRService, HRService>();
+            serviceProvider.AddTransient<IHRController, HRController>();
+            serviceProvider.AddTransient<IReportGenerator, HtmlReportGenerator>();
 
-            }
+            var provider = serviceProvider.BuildServiceProvider();
+            var consumerService = provider.GetService<ConsumerService>();
+            consumerService.DoWork();
+
+            //EmployeesViewModelDTo? response = consumerService.GetEmployee(new EmployeesViewModelDToReq()
+            //{
+            //    Age = 10,
+            //    Email = "bruno@gmail",
+            //    //  CodiceFiscale = "FRRBRN82A14Z602H"
+            //});
 
 
             Console.Read();

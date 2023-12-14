@@ -1,4 +1,4 @@
-﻿using DataLayer.DbContext;
+﻿using DataLayer.Context;
 using DataLayer.Models.HR;
 using System;
 using System.Collections.Generic;
@@ -11,15 +11,17 @@ namespace DataLayer.Repository
     where TResponse : class, new()
     {
         private readonly GenericDbContext<TResponse> Db;
+
+
         List<Employee> Employees;
         List<JobContract> JobContracts;
         List<Job> Jobs;
-        public HRRepository(string path)
+        public HRRepository(GenericDbContext<TResponse> genericDbContext)
         {
-            Db = new GenericDbContext<TResponse>(path);
-            Employees = Db.ReadFromDb<Employee>(path + typeof(Employee).Name.ToString() + ".csv");
-            JobContracts = Db.ReadFromDb<JobContract>(path + typeof(JobContract).Name.ToString() + ".csv");
-            Jobs = Db.ReadFromDb<Job>(path + typeof(Job).Name.ToString() + ".csv");
+            Db = genericDbContext;
+            Employees = Db.ReadFromDb<Employee>();
+            JobContracts = Db.ReadFromDb<JobContract>();
+            Jobs = Db.ReadFromDb<Job>();
             MergerData();
         }
         private void MergerData()
@@ -75,7 +77,7 @@ public interface IRepository<TResponse, TRequest>
 {
 
     /*****  DB ***** */
-    //public T Get(int Id);
+    public TResponse Get(TRequest request);
     //public T Update();
     //public T GetAll();
     //public T Delete(int Id);
