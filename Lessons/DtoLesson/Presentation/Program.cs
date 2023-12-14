@@ -21,7 +21,6 @@ namespace Presentation
             //OptionsConfigurationServiceCollectionExtensions
             // .Configure<AppSettings>(serviceProvider, configuration.GetSection("AppSettings"));
             serviceProvider.AddSingleton<IConfiguration>(configuration);
-
             serviceProvider.AddServiceLayerServices<EmployeesViewModelDToReq, HRServiceDToRes>(configuration);
             serviceProvider.AddTransient<HRController>();
 
