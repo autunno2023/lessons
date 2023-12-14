@@ -29,7 +29,9 @@ namespace DataLayer.Context
      */
     #endregion
 
-    public class DbContext : IDbContext
+    public class DbContext<TResponse> : IDbContext<TResponse>
+    //<TResponse> : IDbContext
+    //<TResponse>
     {
         public string _config; // Solitamente la configurazione per accedere al DstaSrc  
         protected readonly string _configuration;

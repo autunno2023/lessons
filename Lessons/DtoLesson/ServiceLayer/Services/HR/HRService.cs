@@ -9,10 +9,10 @@ namespace ServiceLayer.Services.HR
     {
         private readonly IConfiguration _configuration;
 
-        readonly IRepository<HRServiceDToRes, EmployeesViewModelDToReq> repository;
+        readonly IRepository<EmployeesViewModelDToReq, HRServiceDToRes> repository;
         ModelValidator Modelvalidator;
         HRValidator validator;
-        public HRService(IRepository<HRServiceDToRes, EmployeesViewModelDToReq> Repository)
+        public HRService(IRepository<EmployeesViewModelDToReq, HRServiceDToRes> Repository)
         {
             repository = Repository;
             Modelvalidator = new ModelValidator();

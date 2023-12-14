@@ -1,10 +1,7 @@
 ﻿using DataLayer.Dto.HR;
-using DataLayer.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Presentation.Controllers;
 using ServiceLayer.Services;
-using ServiceLayer.Services.HR;
 using System;
 
 namespace Presentation
@@ -19,19 +16,21 @@ namespace Presentation
 
             // Configura il service provider
             var serviceProvider = new ServiceCollection();
-            serviceProvider.AddSingleton<AppSettings>();
 
             //OptionsConfigurationServiceCollectionExtensions
             // .Configure<AppSettings>(serviceProvider, configuration.GetSection("AppSettings"));
+            serviceProvider.AddSingleton<IConfiguration>(configuration);
+            // serviceProvider.AddSingleton<AppSettings>();
+            // serviceProvider.AddTransient<GenericDbContext<TResponse>>();
+            serviceProvider.AddServiceLayerServices<EmployeesViewModelDToReq, HRServiceDToRes>(configuration);
+            //serviceProvider.AddTransient<HRController>();
+            //serviceProvider.AddTransient<IReportGenerator, HtmlReportGenerator>();
+            //serviceProvider.AddTransient<ConsumerService>();
 
-            serviceProvider.AddServiceLayerServices<HRServiceDToRes, EmployeesViewModelDToReq>(configuration);
-            serviceProvider.AddTransient<IHRService, HRService>();
-            serviceProvider.AddTransient<IHRController, HRController>();
-            serviceProvider.AddTransient<IReportGenerator, HtmlReportGenerator>();
-
-            var provider = serviceProvider.BuildServiceProvider();
-            var consumerService = provider.GetService<ConsumerService>();
-            consumerService.DoWork();
+            //  var provider = serviceProvider.BuildServiceProvider();
+            //var consumerService = provider.GetService<GenericDbContext>();
+            //consumerService.DoWork();
+            //  consumerService.DoWork();
 
             //EmployeesViewModelDTo? response = consumerService.GetEmployee(new EmployeesViewModelDToReq()
             //{

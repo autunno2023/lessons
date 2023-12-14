@@ -2,7 +2,7 @@
 
 namespace DataLayer.Context
 {
-    internal interface IDbContext
+    public interface IDbContext<TResponse>
     {
         List<T> ReadFromDb<T>() where T : class, new();
         void WriteData<T>(IEnumerable<T> data);

@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace Presentation.Controllers
 {
-    internal class HRController : IHRController
+    public class HRController : IHRController
     {
         readonly ModelValidator Modelvalidator;
 
         readonly HRValidator validator;
         readonly IHRService employementService;
-        public HRController(IHRService hRService)
+        public HRController(HRService configuration)
         {
-            employementService = hRService;
+            //  employementService = hRService;
             Modelvalidator = new ModelValidator();
             validator = new HRValidator();
         }

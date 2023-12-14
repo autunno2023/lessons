@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace DataLayer.Repository
 {
-    public class HRRepository<TResponse, TRequest> : IRepository<TResponse, TRequest>
-    //where T : HR, new()
+    public class HRRepository<TRequest, TResponse> : IRepository<TRequest, TResponse>
+    where TRequest : class, new()
     where TResponse : class, new()
     {
         private readonly GenericDbContext<TResponse> Db;
@@ -73,7 +73,7 @@ namespace DataLayer.Repository
 
 }
 
-public interface IRepository<TResponse, TRequest>
+public interface IRepository<TRequest, TResponse>
 {
 
     /*****  DB ***** */

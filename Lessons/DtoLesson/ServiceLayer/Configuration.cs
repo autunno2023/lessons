@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceLayer.Services.HR;
 namespace ServiceLayer.Services
 {
     public static class DataLayerServiceCollectionExtensions
@@ -10,6 +11,7 @@ namespace ServiceLayer.Services
              where K : class, new()
         {
             services.AddDataLayerServices<T, K>(configuration);
+            services.AddTransient<IHRService, HRService>();
 
             return services;
         }
