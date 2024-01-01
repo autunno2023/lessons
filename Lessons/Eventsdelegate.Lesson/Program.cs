@@ -14,7 +14,7 @@ namespace Eventsdelegate.Lesson
 
 
             Thermometer thermometerArsiton = new Thermometer();
-            thermometerArsiton.Name = "Arsiton";
+            thermometerArsiton.Name = "Ariston";
             thermometerArsiton.TempChanged += new OnTempChangedEventHandler(TurnOffTermostato);
             thermometerArsiton.Temp = 28;
 
