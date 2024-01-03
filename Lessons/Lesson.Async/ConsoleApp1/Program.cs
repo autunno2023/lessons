@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Doctor.Async.Lesson
 {
     internal class Program
     {
@@ -28,7 +28,6 @@ namespace ConsoleApp1
     {
         public string Name { get; set; }
     }
-
     public class Hospital
     {
         public async Task<string> AnalysisLab()
@@ -58,8 +57,8 @@ namespace ConsoleApp1
 
 
 
-            Task<string> RadiologyPromise = Radiology();
-            Task<string> AnalysisPromise = AnalysisLab();
+            Task<string> RadiologyPromise = Radiology(); //Promise
+            Task<string> AnalysisPromise = AnalysisLab(); //Promise
 
             Results.Add(RadiologyPromise);
             Results.Add(AnalysisPromise);
@@ -67,14 +66,14 @@ namespace ConsoleApp1
 
 
 
-            ParallelCheckups(Results, patient);/// Runs Taks in  parallel [no Async]
-           // AsyncCheckups(Results, patient);/// Runs Taks in  parallel [ Async]
+            WaitAllCheckups(Results, patient);/// Runs Taks in  parallel [ Async noAwait]
+            //FluidCheckups(Results, patient);/// Runs Taks in  parallel [ Async noAwait]
             Console.ForegroundColor = ConsoleColor.Yellow;
 
             await Task.Run(async () =>
             {
 
-                // Do a long task here while others tasks are running in parallel!  
+                // Do a long task here while others tasks are running in parallel!  s
                 Console.WriteLine($"DOCTOR CHECKUP -  STARTED for {patient.Name.ToUpper()}");
                 await Task.Delay(new Random().Next(5000, 10000));
             });
@@ -89,9 +88,9 @@ namespace ConsoleApp1
 
         }
 
-        public async Task ParallelCheckups(List<Task<string>> tasks, Patient patient)
+        public async void WaitAllCheckups(List<Task<string>> tasks, Patient patient)
         {
-            Console.WriteLine($"Parallel Checkups:: STARTED");
+            Console.WriteLine($"WaitAllCheckups:: STARTED for {patient.Name.ToUpper()}");
 
             Console.Out.WriteLine($"...Awaiting for All the exames to complete for {patient.Name.ToUpper()}...");
 
@@ -105,15 +104,16 @@ namespace ConsoleApp1
             Console.Out.WriteLine($"{result[1]} for {patient.Name.ToUpper()}");
             Console.Out.WriteLine($"-------------------------------");
             Console.ResetColor();
-            Console.WriteLine($"Parallel Checkups:: FINISHED for {patient.Name.ToUpper()}");
+            Console.WriteLine($"WaitAllCheckups:: FINISHED for {patient.Name.ToUpper()}");
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"{patient.Name.ToUpper()} CAN GO HOME!");
             Console.ResetColor();
 
         }
-        public async void AsyncCheckups(List<Task<string>> tasks, Patient patient)
+        public async void FluidCheckups(List<Task<string>> tasks, Patient patient)
         {
+            Console.WriteLine($"FluidCheckups:: STARTED for {patient.Name.ToUpper()}");
 
             while (tasks.Count > 0)
             {
@@ -121,6 +121,7 @@ namespace ConsoleApp1
                 Console.Out.WriteLine($"Awaiting for any of the remaining exames to complete  for {patient.Name.ToUpper()}...");
 
                 Task<string> finishedTask = await Task.WhenAny(tasks);
+
                 string result = await finishedTask;
 
                 if (result == "TAC OK")
@@ -144,7 +145,7 @@ namespace ConsoleApp1
                 tasks.Remove(finishedTask);
             }
 
-            Console.WriteLine($"AsyncCheckups Finished for {patient.Name.ToUpper()}");
+            Console.WriteLine($"FluidCheckups Finished for {patient.Name.ToUpper()}");
 
 
             Console.ForegroundColor = ConsoleColor.Red;
